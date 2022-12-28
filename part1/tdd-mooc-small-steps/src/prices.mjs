@@ -30,14 +30,6 @@ function createApp(database) {
     }
   }
 
-  function convert(date) {
-    if (date instanceof Date) {
-      return date.toTemporalInstant().toZonedDateTimeISO("UTC").toPlainDate();
-    } else {
-      return date;
-    }
-  }
-
   function calculateCost(age, type, date, baseCost) {
     if (type === "night") {
       return calculateCostForNightTicket(age, baseCost);
