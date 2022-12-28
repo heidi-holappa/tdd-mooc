@@ -70,7 +70,7 @@ function createApp(database) {
 
   function calculateReduction(date) {
     let reduction = 0;
-    if (date && isMonday(date) && !isHoliday(date)) {
+    if (date && isMonday(convert(date)) && !isHoliday(date)) {
       reduction = 35;
     }
     return reduction;
@@ -81,7 +81,11 @@ function createApp(database) {
   }
 
   function convert(date) {
-    return date.toTemporalInstant().toZonedDateTimeISO("UTC").toPlainDate();
+    if (date instanceof Date) {
+      return date.toTemporalInstant().toZonedDateTimeISO("UTC").toPlainDate();
+    } else {
+      return date
+    }
   }
 
   function isHoliday(date) {
