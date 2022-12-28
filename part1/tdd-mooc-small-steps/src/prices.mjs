@@ -29,6 +29,14 @@ function createApp(database) {
     }
   }
 
+  function convert(date) {
+    if (date instanceof Date) {
+      return date.toTemporalInstant().toZonedDateTimeISO("UTC").toPlainDate();
+    } else {
+      return date;
+    }
+  }
+
   function calculateCost(age, type, date, baseCost) {
     if (type === "night") {
       return calculateCostForNightTicket(age, baseCost);
@@ -77,14 +85,6 @@ function createApp(database) {
 
   function isMonday(date) {
     return date.dayOfWeek === 1;
-  }
-
-  function convert(date) {
-    if (date instanceof Date) {
-      return date.toTemporalInstant().toZonedDateTimeISO("UTC").toPlainDate();
-    } else {
-      return date;
-    }
   }
 
   function isHoliday(date) {
