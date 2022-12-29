@@ -6,6 +6,7 @@ export class Board {
     this.width = width;
     this.height = height;
     this.active_location = 0
+    this.has_falling = false
     this.create_board()
   }
 
@@ -21,18 +22,27 @@ export class Board {
   }
 
   drop(block) {
+    if (this.has_falling) {
+      throw "already falling"
+    }
     let shape = `X`
     let newblock_index = Math.floor(this.width / 2)
     let newboard = this.board.substring(0, newblock_index) + shape + this.board.substring(newblock_index + 1)
     this.board = newboard
     this.active_location = newblock_index
-  }
+    this.has_falling = true
+  } 
 
   tick() {
     let old_location = this.active_location
     let new_location = this.active_location + this.width + 1
+    this.active_location = new_location
     let updated_board = this.board.substring(0, old_location) + `.` + this.board.substring(old_location + 1, new_location) + `X` + this.board.substring(new_location + 1)
     this.board = updated_board
+  }
+
+  hasFalling() {
+    return this.has_falling
   }
 
   toString() {
