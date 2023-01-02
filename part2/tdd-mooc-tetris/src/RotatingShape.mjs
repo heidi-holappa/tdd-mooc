@@ -29,11 +29,10 @@ export class RotatingShape {
   }
 
   rotateRight() {
-    let shape = [
-      [0, 0, 0],
-      [0, 0, 0],
-      [0, 0, 0],
-    ];
+    let n = this.shape.length
+    let shape = Array.from({
+      length: n
+    }, () => new Array(n).fill(0));
     for (let row_index = 0; row_index < this.shape.length; row_index++) {
       for (
         let column_index = 0;
