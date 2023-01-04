@@ -1,34 +1,48 @@
 export class Tetromino {
     static T_SHAPE = new Tetromino(
+      1, 
+      4,
     `.T.
     TTT
     ...`)
     static I_SHAPE = new Tetromino(
+      1,
+      2,
     `.....
     .....
     IIII.
     .....
     .....`)
     static O_SHAPE = new Tetromino(
+      1,
+      1,
     `.OO
     .OO
     ...`)
 
-    constructor (shape) {
-        if (typeof shape == "string") {
-            this.shape = shape
-              .replaceAll(" ", "")
-              .trim()
-              .split("\n")
-              .map((row) => row.split(""));
-          } else {
-            this.shape = shape;
-          }
+    constructor (current_rotation, rotations, shape) {
+      this.current_rotation = current_rotation
+      this.rotations = rotations
+      if (typeof shape == "string") {
+          this.shape = shape
+            .replaceAll(" ", "")
+            .trim()
+            .split("\n")
+            .map((row) => row.split(""));
+      } else {
+          this.shape = shape;
+      }
     }
 
     rotateRight() {
-        let n = this.shape.length
-        let shape = Array.from({
+      if (this.rotations === 1) {
+        return this
+      }
+      if (this.rotations === 2 && this.current_rotation === 2) {
+        return Tetromino.I_SHAPE
+      }
+      let n = this.shape.length
+      let shape = Array.from({
           length: n
         }, () => new Array(n).fill(0));
         for (let row_index = 0; row_index < this.shape.length; row_index++) {
@@ -43,11 +57,12 @@ export class Tetromino {
         for (let row_index = 0; row_index < this.shape.length; row_index++) {
           shape[row_index].reverse();
         }
-        return new Tetromino(shape);
+        let new_current = this.current_rotation + 1
+        return new Tetromino(new_current,this.rotations,shape);
       }
     
     rotateLeft() {
-        return this.rotateRight().rotateRight().rotateRight();
+      return this.rotateRight().rotateRight().rotateRight();
     }
 
     toString() {
