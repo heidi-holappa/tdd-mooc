@@ -13,6 +13,10 @@ export class Block {
     return 1
   }
 
+  symbolAt(row, col) {
+    return this.shape
+  }
+
   toString() {
     return this.shape
   }

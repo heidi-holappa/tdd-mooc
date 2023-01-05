@@ -70,7 +70,11 @@ export class Tetromino {
     }
 
     columns() {
-      return this.shape[0].length()
+      return this.shape[0].length
+    }
+
+    symbolAt(row, column) {
+      return this.shape[row][column]
     }
 
     toString() {
