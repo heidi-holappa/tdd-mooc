@@ -65,8 +65,12 @@ export class Tetromino {
       return this.rotateRight().rotateRight().rotateRight();
     }
 
-    height() {
-      return Math.sqrt(this.shape.length)
+    rows() {
+      return this.shape.length
+    }
+
+    columns() {
+      return this.shape[0].length()
     }
 
     toString() {

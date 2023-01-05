@@ -26,6 +26,7 @@ export class Board {
       throw "already falling"
     }
     let shape = block.shape
+    let height = block.rows()
     let newblock_index = Math.floor(this.width / 2)
     let newboard = this.board.substring(0, newblock_index) + shape + this.board.substring(newblock_index + 1)
     this.board = newboard
