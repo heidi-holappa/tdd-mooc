@@ -66,7 +66,23 @@ export class Tetromino {
     }
 
     rows() {
-      return this.shape.length
+      let symbol_found = false
+      let length = 0
+      for (let row = 0; row < this.shape.length; row++) {
+        let has_symbol = false
+        for (let col = 0; col < this.shape[0].length; col++) {
+          if (this.shape[row][col] !== ".") {
+            has_symbol = true
+            symbol_found = true
+          }
+        }
+        if (has_symbol || !symbol_found) {
+          length += 1
+        }
+        has_symbol = false
+      }
+      console.log("Length", length)
+      return length
     }
 
     columns() {
