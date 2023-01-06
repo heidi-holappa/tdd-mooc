@@ -82,7 +82,7 @@ export class Tetromino {
         has_symbol = false
       }
       console.log("Length", length)
-      return length
+      return length 
     }
 
     columns() {
