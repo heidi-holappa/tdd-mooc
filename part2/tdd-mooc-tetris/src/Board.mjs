@@ -6,6 +6,7 @@ export class Board {
     this.width = width;
     this.height = height;
     this.current_row = 0
+    this.current_col = 0
     this.has_falling = false
     this.falling_block = []
     this.create_board()
@@ -43,11 +44,11 @@ export class Board {
     this.falling_block = block
     let rows = block.rows()
     let columns = block.columns()
-    let start_index = Math.floor((this.width - columns) / 2)
+    this.current_col = Math.floor((this.width - columns) / 2)
     let newboard2 = this.board
     for (let row = 0; row < rows; row++) {
       for (let column = 0; column < columns; column++) {
-        this.array_board[row][start_index + column] = block.symbolAt(row, column)
+        this.array_board[row][this.current_col + column] = block.symbolAt(row, column)
       }
     }
     this.board = newboard2
@@ -81,6 +82,76 @@ export class Board {
     for (let row = 0; row < rows; row++) {
       for (let column = 0; column < columns; column++) {
         this.array_board[this.current_row + row][start_index + column] = this.falling_block.symbolAt(row, column)
+      }
+    }
+  }
+
+  shape_can_be_moved(col_index) {
+    let rows = this.falling_block.rows()
+    for (let row = 0; row < rows; row++) {
+      if (this.array_board[this.current_row + row][col_index] !== ".") {
+        return false
+      }
+    }
+    return true
+  }
+
+  move_left() {
+    if (this.current_col === 0) {
+      return
+    }
+    if (!this.shape_can_be_moved(this.current_col -1 )) {
+      this.has_falling = false
+      return
+    }
+    this.clear_falling()
+    this.current_col -= 1
+    this.draw_block()
+  }
+
+  move_right() {
+    let columns = this.falling_block.columns()
+    if (this.current_col + columns === this.width) {
+      return
+    }
+    if (!this.shape_can_be_moved(this.current_col + this.falling_block.columns())) {
+      this.has_falling = false
+      return
+    }
+    this.clear_falling()
+    this.current_col += 1
+    this.draw_block()
+  }
+
+  move_down() {
+    if (!this.hasFalling()) {
+      return
+    }
+    this.tick()
+  }
+
+  clear_falling() {
+    let rows = this.falling_block.rows()
+    let columns = this.falling_block.columns()
+    for (let row = 0; row < rows; row++) {
+      for (let column = 0; column < columns; column++) {
+        let row_index = this.current_row + row
+        let col_index = this.current_col + column 
+        if (this.falling_block.symbolAt(row, column) !== ".") {
+          this.array_board[row_index][col_index] = '.'
+        }
+      }
+    }
+  }
+
+  draw_block() {
+    let rows = this.falling_block.rows()
+    let columns = this.falling_block.columns()
+    for (let row = 0; row < rows; row++) {
+      for (let column = 0; column < columns; column++) {
+        if (this.falling_block.symbolAt(row, column) !== ".") {
+          this.array_board[this.current_row + row][this.current_col + column] = this.falling_block.symbolAt(row, column)
+        } 
       }
     }
   }
