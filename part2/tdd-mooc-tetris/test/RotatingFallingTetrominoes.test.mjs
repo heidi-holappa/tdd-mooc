@@ -28,7 +28,7 @@ describe("Falling T-shape tetrominoes", () => {
     );
   });
 
-  xit("can be rotated left", () => {
+  it("can be rotated left", () => {
     board.drop(Tetromino.T_SHAPE);
     board.rotate_falling_tetromino_left()
 
@@ -42,7 +42,7 @@ describe("Falling T-shape tetrominoes", () => {
     );
   });
 
-  xit("can be rotated left twice", () => {
+  it("can be rotated left twice", () => {
     board.drop(Tetromino.T_SHAPE);
     board.rotate_falling_tetromino_left()
     board.rotate_falling_tetromino_left()
@@ -57,7 +57,7 @@ describe("Falling T-shape tetrominoes", () => {
     );
   });
 
-  xit("can be rotated right twice", () => {
+  it("can be rotated right twice", () => {
     board.drop(Tetromino.T_SHAPE);
     board.rotate_falling_tetromino_right()
     board.rotate_falling_tetromino_right()
@@ -72,7 +72,7 @@ describe("Falling T-shape tetrominoes", () => {
     );
   });
 
-  xit("wall kick in left side", () => {
+  it("wall kick in left side", () => {
     board.drop(Tetromino.T_SHAPE);
     board.rotate_falling_tetromino_right()
     for (let i = 0; i < 10; i++) {
@@ -90,7 +90,7 @@ describe("Falling T-shape tetrominoes", () => {
     );
   });
 
-  xit("wall kick in right side", () => {
+  it("wall kick in right side", () => {
     board.drop(Tetromino.T_SHAPE);
     board.rotate_falling_tetromino_left()
     for (let i = 0; i < 10; i++) {
@@ -108,7 +108,7 @@ describe("Falling T-shape tetrominoes", () => {
     );
   });
 
-  xit("piece at the bottom can not be rotated", () => {
+  it("piece at the bottom can not be rotated", () => {
     board.drop(Tetromino.T_SHAPE);
     board.tick()
     board.rotate_falling_tetromino_left()

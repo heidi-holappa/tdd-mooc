@@ -130,6 +130,18 @@ export class Board {
     this.tick()
   }
 
+  rotate_falling_tetromino_right() {
+    this.clear_falling();
+    this.falling_block = this.falling_block.rotateRight();
+    this.draw_block();
+  }
+
+  rotate_falling_tetromino_left() {
+    this.clear_falling();
+    this.falling_block = this.falling_block.rotateLeft();
+    this.draw_block();
+  }
+
   clear_falling() {
     let rows = this.falling_block.rows()
     let columns = this.falling_block.columns()
