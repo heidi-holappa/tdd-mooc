@@ -131,14 +131,25 @@ export class Board {
   }
 
   rotate_falling_tetromino_right() {
-    this.clear_falling();
-    this.falling_block = this.falling_block.rotateRight();
-    this.draw_block();
+    let rotated_block = this.falling_block.rotateRight()
+    this.handle_block_rotation(rotated_block)
   }
 
   rotate_falling_tetromino_left() {
+    let rotated_block = this.falling_block.rotateLeft()
+    this.handle_block_rotation(rotated_block)
+  }
+
+  handle_block_rotation(rotated_block) {
+    if (!this.hasFalling()) {
+      return
+    }
     this.clear_falling();
-    this.falling_block = this.falling_block.rotateLeft();
+    if (!this.validate_space(rotated_block, this.current_row,this.current_col)) {
+      this.draw_block()
+      return
+    }
+    this.falling_block = rotated_block
     this.draw_block();
   }
 
@@ -166,6 +177,24 @@ export class Board {
         } 
       }
     }
+  }
+
+  validate_space(block, row, col) {
+    let block_width = block.columns()
+    let block_height = block.rows()
+    if (col + block_width > this.width || row + block_height > this.height) {
+      console.log("First if fails")
+      return false
+    }
+    for (let r = 0; r < block_height; r++ ) {
+      for (let c = 0; c < block_width; c++) {
+        if (block.symbolAt(r, c) !== "." && this.array_board[row + r][col + c] !== ".") {
+          console.log("For if fails", row+r, col+c, this.array_board[row + r][col+ c]) 
+          return false
+        }
+      }
+    }
+    return true
   }
 
   hasFalling() {

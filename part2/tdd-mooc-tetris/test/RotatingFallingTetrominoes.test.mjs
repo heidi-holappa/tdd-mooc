@@ -110,21 +110,18 @@ describe("Falling T-shape tetrominoes", () => {
 
   it("piece at the bottom can not be rotated", () => {
     board.drop(Tetromino.T_SHAPE);
-    board.tick()
-    board.rotate_falling_tetromino_left()
-    for (let i = 0; i < 10; i++) {
-      board.move_right()
+    for (let i = 0; i < 4; i++) {
+      board.tick()
     }
-
-    board.rotate_falling_tetromino_left()
+    board.rotate_falling_tetromino_right()
 
     expect(board.toString()).to.equalShape(
       `..........
        ..........
        ..........
        ..........
-       ..........
-       ..........`
+       ....T.....
+       ...TTT....`
     );
   });
 
