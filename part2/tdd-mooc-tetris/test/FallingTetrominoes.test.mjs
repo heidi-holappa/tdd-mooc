@@ -8,7 +8,7 @@ function fallToBottom(board) {
   }
 }
 
-describe("Falling tetrominoes", () => {
+describe("Falling T-shape tetrominoes", () => {
   let board;
   beforeEach(() => {
     board = new Board(10, 6);
@@ -58,3 +58,23 @@ describe("Falling tetrominoes", () => {
   });
 });
 
+describe("Falling I-shape tetrominoes", () => {
+  let board;
+  beforeEach(() => {
+    board = new Board(10, 6);
+  });
+
+  xit("start from the top middle", () => {
+    board.drop(Tetromino.I_SHAPE);
+
+    expect(board.toString()).to.equalShape(
+      `..IIII....
+       ..........
+       ..........
+       ..........
+       ..........
+       ..........`
+    );
+  });
+
+});
