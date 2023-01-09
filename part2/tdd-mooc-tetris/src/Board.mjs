@@ -9,19 +9,7 @@ export class Board {
     this.current_col = 0
     this.has_falling = false
     this.falling_block = []
-    this.create_board()
     this.create_array_board()
-  }
-
-  create_board() {
-    let board = ''
-    for (let i = 0; i < this.height; i++) {
-      for (let j = 0; j < this.width; j++) {
-        board += `.`
-      }
-      board += `\n`
-    }
-    this.board = board;
   }
 
   create_array_board() {
@@ -45,13 +33,11 @@ export class Board {
     let rows = block.rows()
     let columns = block.columns()
     this.current_col = Math.floor((this.width - columns) / 2)
-    let newboard2 = this.board
     for (let row = 0; row < rows; row++) {
       for (let column = 0; column < columns; column++) {
         this.array_board[row][this.current_col + column] = block.symbolAt(row, column)
       }
     }
-    this.board = newboard2
     this.current_row = 0  
     this.has_falling = true
   }
@@ -86,22 +72,10 @@ export class Board {
     }
   }
 
-  shape_can_be_moved(col_index) {
-    let rows = this.falling_block.rows()
-    for (let row = 0; row < rows; row++) {
-      if (this.array_board[this.current_row + row][col_index] !== ".") {
-        return false
-      }
-    }
-    return true
-  }
-
   move_left() {
-    if (this.current_col === 0) {
-      return
-    }
-    if (!this.shape_can_be_moved(this.current_col -1 )) {
-      this.has_falling = false
+    let action_is_valid = this.validate_space(this.falling_block, this.current_row, this.current_col - 1)
+    if (!action_is_valid) {
+      this.draw_block()
       return
     }
     this.clear_falling()
@@ -110,12 +84,9 @@ export class Board {
   }
 
   move_right() {
-    let columns = this.falling_block.columns()
-    if (this.current_col + columns === this.width) {
-      return
-    }
-    if (!this.shape_can_be_moved(this.current_col + this.falling_block.columns())) {
-      this.has_falling = false
+    let action_is_valid = this.validate_space(this.falling_block, this.current_row, this.current_col + 1)
+    if (!action_is_valid) {
+      this.draw_block()
       return
     }
     this.clear_falling()
@@ -141,16 +112,55 @@ export class Board {
   }
 
   handle_block_rotation(rotated_block) {
-    if (!this.hasFalling()) {
-      return
-    }
-    this.clear_falling();
     if (!this.validate_space(rotated_block, this.current_row,this.current_col)) {
+      if (this.validate_space(rotated_block, this.current_row, this.current_col - 1)) {
+        this.current_col -= 1
+        this.falling_block = rotated_block
+        this.draw_block()
+        return
+      }
+
+      if (this.validate_space(rotated_block, this.current_row, this.current_col + 1)) {
+        this.current_col += 1
+        this.falling_block = rotated_block
+        this.draw_block()
+        return
+      }
       this.draw_block()
       return
     }
     this.falling_block = rotated_block
     this.draw_block();
+  }
+
+  validate_space(block, row, col) {
+    if (!this.hasFalling()) {
+      return
+    }
+    this.clear_falling()
+    let block_width = block.columns()
+    let block_height = block.rows()
+    if (col + block_width > this.width || row + block_height > this.height) {
+      return false
+    }
+    for (let r = 0; r < block_height; r++ ) {
+      for (let c = 0; c < block_width; c++) {
+        if (block.symbolAt(r, c) !== "." && this.array_board[row + r][col + c] !== ".") {
+          return false
+        }
+      }
+    }
+    return true
+  }
+
+  shape_can_be_moved(col_index) {
+    let rows = this.falling_block.rows()
+    for (let row = 0; row < rows; row++) {
+      if (this.array_board[this.current_row + row][col_index] !== ".") {
+        return false
+      }
+    }
+    return true
   }
 
   clear_falling() {
@@ -177,24 +187,6 @@ export class Board {
         } 
       }
     }
-  }
-
-  validate_space(block, row, col) {
-    let block_width = block.columns()
-    let block_height = block.rows()
-    if (col + block_width > this.width || row + block_height > this.height) {
-      console.log("First if fails")
-      return false
-    }
-    for (let r = 0; r < block_height; r++ ) {
-      for (let c = 0; c < block_width; c++) {
-        if (block.symbolAt(r, c) !== "." && this.array_board[row + r][col + c] !== ".") {
-          console.log("For if fails", row+r, col+c, this.array_board[row + r][col+ c]) 
-          return false
-        }
-      }
-    }
-    return true
   }
 
   hasFalling() {

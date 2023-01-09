@@ -72,7 +72,7 @@ describe("Falling T-shape tetrominoes", () => {
     );
   });
 
-  it("wall kick in left side", () => {
+  it("wall kick in left-most side", () => {
     board.drop(Tetromino.T_SHAPE);
     board.rotate_falling_tetromino_right()
     for (let i = 0; i < 10; i++) {
@@ -90,7 +90,32 @@ describe("Falling T-shape tetrominoes", () => {
     );
   });
 
-  it("wall kick in right side", () => {
+  it("wall kick if another piece blocks the way", () => {
+    board.drop(Tetromino.T_SHAPE);
+    board.rotate_falling_tetromino_left()
+    for (let i = 0; i < 10; i++) {
+      board.move_left()
+    }
+    board.has_falling = false
+    board.drop(Tetromino.T_SHAPE)
+    board.rotate_falling_tetromino_right()
+    board.move_left()
+    board.move_left()
+    board.rotate_falling_tetromino_right()
+
+    expect(board.toString()).to.equalShape(
+      `.T........
+       TTTTT.....
+       .T.T......
+       ..........
+       ..........
+       ..........`
+    );
+  });
+
+
+
+  it("wall kick in right-most side", () => {
     board.drop(Tetromino.T_SHAPE);
     board.rotate_falling_tetromino_left()
     for (let i = 0; i < 10; i++) {
