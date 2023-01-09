@@ -112,25 +112,22 @@ export class Board {
   }
 
   handle_block_rotation(rotated_block) {
+    let can_rotate = true
     if (!this.validate_space(rotated_block, this.current_row,this.current_col)) {
-      if (this.validate_space(rotated_block, this.current_row, this.current_col - 1)) {
-        this.current_col -= 1
-        this.falling_block = rotated_block
-        this.draw_block()
-        return
-      }
-
-      if (this.validate_space(rotated_block, this.current_row, this.current_col + 1)) {
-        this.current_col += 1
-        this.falling_block = rotated_block
-        this.draw_block()
-        return
-      }
-      this.draw_block()
-      return
+      can_rotate = false
     }
-    this.falling_block = rotated_block
-    this.draw_block();
+    if (!can_rotate && this.validate_space(rotated_block, this.current_row, this.current_col - 1)) {
+      this.current_col -= 1
+      can_rotate = true
+    }
+    if (!can_rotate && this.validate_space(rotated_block, this.current_row, this.current_col + 1)) {
+      this.current_col += 1
+      can_rotate = true
+    }
+    if (can_rotate) {
+      this.falling_block = rotated_block
+    }
+    this.draw_block()
   }
 
   validate_space(block, row, col) {
