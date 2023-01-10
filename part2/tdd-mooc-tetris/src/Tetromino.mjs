@@ -18,7 +18,7 @@ export class Tetromino {
       1,
     `.OO
     .OO
-    ...`)
+    ...`) 
 
     constructor (current_rotation, rotations, shape) {
       this.current_rotation = current_rotation
