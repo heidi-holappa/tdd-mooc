@@ -1,69 +1,75 @@
-export class Tetromino {
-    static T_SHAPE = new Tetromino(
-      1, 
-      4,
-    `.T.
-     TTT
-     ...
-    `,)
-    static I_SHAPE = new Tetromino(
+export class ArikaTetromino {
+    static T_SHAPE = new ArikaTetromino(
+      0, 
+      3,
+    [`....
+     TTT.
+     .T..
+     ....`,
+    `.T..
+     TT..
+     .T..
+     ....`,
+    `....
+     .T..
+     TTT.
+     ....`,
+    `.T..
+     .TT.
+     .T..
+     ....`])
+    static I_SHAPE = new ArikaTetromino(
+      0,
       1,
-      2,
-    `.....
-    .....
-    IIII.
-    .....
-    .....`)
-    static O_SHAPE = new Tetromino(
-      1,
-      1,
-    `.OO
-    .OO
-    ...`) 
+    [
+    `....
+     IIII
+     ....
+     ....`,
+     `..I.
+      ..I.
+      ..I.
+      ..I.`
+    ])
+    static O_SHAPE = new ArikaTetromino(
+      0,
+      0,
+    [`....
+     .OO.
+     .OO.
+     ....`]) 
 
-    constructor (current_rotation, rotations, shape) {
+    constructor (current_rotation, rotations, shapes) {
       this.current_rotation = current_rotation
       this.rotations = rotations
-      if (typeof shape == "string") {
-          this.shape = shape
+      this.shapes = shapes
+      console.log("Constructing new shape. Rotation: ", current_rotation)
+      console.log("shapes current rotation: ", shapes[current_rotation])
+      if (typeof shapes[current_rotation] == "string") {
+          this.shape = shapes[current_rotation]
             .replaceAll(" ", "")
             .trim()
             .split("\n")
             .map((row) => row.split(""));
       } else {
-          this.shape = shape;
+          this.shape = shapes[current_rotation];
       }
     }
 
     rotateRight() {
-      if (this.rotations === 1) {
-        return this
+      if (this.current_rotation === this.rotations) {
+        return new ArikaTetromino(0, this.rotations, this.shapes)
       }
-      if (this.rotations === 2 && this.current_rotation === 2) {
-        return Tetromino.I_SHAPE
-      }
-      let n = this.shape.length
-      let shape = Array.from({
-          length: n
-        }, () => new Array(n).fill(0));
-        for (let row_index = 0; row_index < this.shape.length; row_index++) {
-          for (
-            let column_index = 0;
-            column_index < this.shape[row_index].length;
-            column_index++
-          ) {
-            shape[column_index][row_index] = this.shape[row_index][column_index];
-          }
-        }
-        for (let row_index = 0; row_index < this.shape.length; row_index++) {
-          shape[row_index].reverse();
-        }
-        let new_current = this.current_rotation + 1
-        return new Tetromino(new_current,this.rotations,shape);
-      }
+      return new ArikaTetromino(this.current_rotation + 1, this.rotations, this.shapes)
+    }
     
     rotateLeft() {
-      return this.rotateRight().rotateRight().rotateRight();
+      if (this.current_rotation === 0) {
+        console.log("Returning new Tetromino!")
+        return new ArikaTetromino(this.rotations, this.rotations, this.shapes)
+      }
+      console.log("TURNING LEFT, NO IF.", this.current_rotation, this.rotations)
+      return new ArikaTetromino(this.current_rotation - 1, this.rotations, this.shapes)
     }
 
     rows() {
