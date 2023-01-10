@@ -77,7 +77,7 @@ describe("Falling I-shape tetrominoes", () => {
     );
   });
 
-  xit("after one tick drops one level", () => {
+  it("after one tick drops one level", () => {
     board.drop(Tetromino.I_SHAPE);
     board.tick()
 
@@ -162,6 +162,80 @@ describe("Falling I-shape tetrominoes", () => {
          ....OO....`
       );
     });
+
+    it("stops if other shape is below", () => {
+      board.drop(Tetromino.O_SHAPE);
+      for (let i = 0; i < 10; i++) {
+        board.tick()
+      }
+      board.drop(Tetromino.O_SHAPE);
+      for (let i = 0; i < 10; i++) {
+        board.tick()
+      }
+  
+      expect(board.toString()).to.equalShape(
+        `..........
+         ..........
+         ....OO....
+         ....OO....
+         ....OO....
+         ....OO....`
+      );
+    });
+  
+  });
+
+  describe("Falling various shaped tetrominoes", () => {
+    let board;
+    beforeEach(() => {
+      board = new Board(10, 6);
+    });
+
+    it("I-shape stops when T-shape is below", () => {
+      board.drop(Tetromino.T_SHAPE);
+      for (let i = 0; i < 10; i++) {
+        board.tick()
+      }
+      board.drop(Tetromino.I_SHAPE);
+      for (let i = 0; i < 10; i++) {
+        board.tick()
+      }
+  
+      expect(board.toString()).to.equalShape(
+        `..........
+         ..........
+         ..........
+         ..IIII....
+         ....T.....
+         ...TTT....`
+      );
+    });
+
+    it("O-shape stops when I and T-shape are below", () => {
+      board.drop(Tetromino.T_SHAPE);
+      for (let i = 0; i < 10; i++) {
+        board.tick()
+      }
+      board.drop(Tetromino.I_SHAPE);
+      for (let i = 0; i < 10; i++) {
+        board.tick()
+      }
+      board.drop(Tetromino.O_SHAPE);
+      for (let i = 0; i < 10; i++) {
+        board.tick()
+      }
+  
+      expect(board.toString()).to.equalShape(
+        `..........
+         ....OO....
+         ....OO....
+         ..IIII....
+         ....T.....
+         ...TTT....`
+      );
+    });
+
+  
   
   });
 
