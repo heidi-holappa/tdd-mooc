@@ -30,15 +30,18 @@ export class Board {
       throw "already falling"
     }
     this.falling_block = block
+    this.current_row = 0 - this.falling_block.shape_start_row()
     let rows = block.rows()
     let columns = block.columns()
     this.current_col = Math.floor((this.width - columns) / 2)
     for (let row = 0; row < rows; row++) {
-      for (let column = 0; column < columns; column++) {
-        this.array_board[row][this.current_col + column] = block.symbolAt(row, column)
+      if (row + this.current_row < 0) {
+        continue
       }
-    }
-    this.current_row = 0  
+      for (let column = 0; column < columns; column++) {
+        this.array_board[row + this.current_row][this.current_col + column] = block.symbolAt(row, column) 
+      }
+    }  
     this.has_falling = true
   }
 
@@ -50,26 +53,31 @@ export class Board {
       this.has_falling = false
       return
     }
+    if (!this.can_be_ticked()) {
+      return
+    }
+    this.clear_falling()
     let rows = this.falling_block.rows()
     let columns = this.falling_block.columns()
-    let start_index = Math.floor((this.width - columns) / 2)
-    for (let column = 0; column < this.falling_block.columns(); column++) {
-      if (this.array_board[this.current_row + this.falling_block.rows()][start_index + column] !== ".") {
-        this.has_falling = false
-        return 
-      }
-    }
-    for (let row = 0; row < rows; row++) {
-      for (let column = 0; column < columns; column++) {
-        this.array_board[this.current_row + row][start_index + column] = '.'
-      }
-    }
     this.current_row += 1
     for (let row = 0; row < rows; row++) {
+      if (row + this.current_row < 0) {
+        continue
+      }
       for (let column = 0; column < columns; column++) {
-        this.array_board[this.current_row + row][start_index + column] = this.falling_block.symbolAt(row, column)
+        this.array_board[this.current_row + row][this.current_col + column] = this.falling_block.symbolAt(row, column)
       }
     }
+  }
+
+  can_be_ticked() {
+    for (let column = 0; column < this.falling_block.columns(); column++) {
+      if (this.array_board[this.current_row + this.falling_block.rows()][this.current_col + column] !== ".") {
+        this.has_falling = false
+        return false
+      }
+    }
+    return true
   }
 
   move_left() {
@@ -164,11 +172,14 @@ export class Board {
     let rows = this.falling_block.rows()
     let columns = this.falling_block.columns()
     for (let row = 0; row < rows; row++) {
+      let grid_row_index = this.current_row + row
+      if (grid_row_index < 0) {
+        continue
+      }
       for (let column = 0; column < columns; column++) {
-        let row_index = this.current_row + row
-        let col_index = this.current_col + column 
+        let grid_col_index = this.current_col + column 
         if (this.falling_block.symbolAt(row, column) !== ".") {
-          this.array_board[row_index][col_index] = '.'
+          this.array_board[grid_row_index][grid_col_index] = '.'
         }
       }
     }

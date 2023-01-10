@@ -85,6 +85,17 @@ export class Tetromino {
       return length 
     }
 
+    shape_start_row() {
+      for (let row = 0; row < this.rows(); row++) {
+        for (let col = 0; col < this.columns(); col++) {
+          if (this.shape[row][col] !== ".") {
+            return row
+          }
+        }
+      }
+      return this.rows()
+    }
+
     columns() {
       return this.shape[0].length
     }

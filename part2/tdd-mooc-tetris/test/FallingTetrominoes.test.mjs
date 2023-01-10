@@ -64,7 +64,7 @@ describe("Falling I-shape tetrominoes", () => {
     board = new Board(10, 6);
   });
 
-  xit("start from the top middle", () => {
+  it("start from the top middle", () => {
     board.drop(Tetromino.I_SHAPE);
 
     expect(board.toString()).to.equalShape(
@@ -75,6 +75,94 @@ describe("Falling I-shape tetrominoes", () => {
        ..........
        ..........`
     );
+  });
+
+  xit("after one tick drops one level", () => {
+    board.drop(Tetromino.I_SHAPE);
+    board.tick()
+
+    expect(board.toString()).to.equalShape(
+      `..........
+       ..IIII....
+       ..........
+       ..........
+       ..........
+       ..........`
+    );
+  });
+
+  it("stops at bottom", () => {
+    board.drop(Tetromino.I_SHAPE);
+    for (let i = 0; i < 10; i++) {
+      board.tick()
+    }
+
+    expect(board.toString()).to.equalShape(
+      `..........
+       ..........
+       ..........
+       ..........
+       ..........
+       ..IIII....`
+    );
+  });
+
+    it("stops when another piece is below", () => {
+      board.drop(Tetromino.I_SHAPE);
+      for (let i = 0; i < 10; i++) {
+        board.tick()
+      }
+      board.drop(Tetromino.I_SHAPE);
+      for (let i = 0; i < 10; i++) {
+        board.tick()
+      }
+      
+  
+      expect(board.toString()).to.equalShape(
+        `..........
+         ..........
+         ..........
+         ..........
+         ..IIII....
+         ..IIII....`
+      );
+  });
+
+  describe("Falling O-shape tetrominoes", () => {
+    let board;
+    beforeEach(() => {
+      board = new Board(10, 6);
+    });
+  
+    it("start from the top middle", () => {
+      board.drop(Tetromino.O_SHAPE);
+  
+      expect(board.toString()).to.equalShape(
+        `....OO....
+         ....OO....
+         ..........
+         ..........
+         ..........
+         ..........`
+      );
+    });
+
+    it("stop at the bottom", () => {
+      board.drop(Tetromino.O_SHAPE);
+      for (let i = 0; i < 10; i++) {
+        board.tick()
+      }
+  
+      expect(board.toString()).to.equalShape(
+        `..........
+         ..........
+         ..........
+         ..........
+         ....OO....
+         ....OO....`
+      );
+    });
+  
   });
 
 });

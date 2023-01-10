@@ -17,6 +17,10 @@ export class Block {
     return this.shape
   }
 
+  shape_start_row() {
+    return 0
+  }
+
   toString() {
     return this.shape
   }

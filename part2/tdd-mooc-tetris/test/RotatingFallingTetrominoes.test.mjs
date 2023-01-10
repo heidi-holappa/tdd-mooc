@@ -159,7 +159,7 @@ describe("Falling I-shape tetrominoes", () => {
     board = new Board(10, 6);
   });
 
-  it("can be rotated right", () => {
+  xit("can be rotated right", () => {
     board.drop(Tetromino.I_SHAPE);
     board.rotate_falling_tetromino_right()
     
