@@ -1,6 +1,7 @@
 import { expect } from "chai";
 import { Board } from "../src/Board.mjs";
 import { Tetromino } from "../src/Tetromino.mjs";
+import { ArikaTetromino } from "../src/ArikaTetromino.mjs";
 
 function fallToBottom(board) {
   for (let i = 0; i < 10; i++) {
@@ -15,11 +16,11 @@ describe("Falling T-shape tetrominoes", () => {
   });
 
   it("start from the top middle", () => {
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(ArikaTetromino.T_SHAPE);
 
     expect(board.toString()).to.equalShape(
-      `....T.....
-       ...TTT....
+      `...TTT....
+       ....T.....
        ..........
        ..........
        ..........
@@ -28,7 +29,7 @@ describe("Falling T-shape tetrominoes", () => {
   });
 
   it("stop when they hit the bottom", () => {
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(ArikaTetromino.T_SHAPE);
     fallToBottom(board);
 
     expect(board.toString()).to.equalShape(
@@ -36,24 +37,24 @@ describe("Falling T-shape tetrominoes", () => {
        ..........
        ..........
        ..........
-       ....T.....
-       ...TTT....`
+       ...TTT....
+       ....T.....`
     );
   });
 
   it("stop when they land on another block", () => {
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(ArikaTetromino.T_SHAPE);
     fallToBottom(board);
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(ArikaTetromino.T_SHAPE);
     fallToBottom(board);
 
     expect(board.toString()).to.equalShape(
       `..........
        ..........
-       ....T.....
        ...TTT....
        ....T.....
-       ...TTT....`
+       ...TTT....
+       ....T.....`
     );
   });
 });
@@ -65,10 +66,10 @@ describe("Falling I-shape tetrominoes", () => {
   });
 
   it("start from the top middle", () => {
-    board.drop(Tetromino.I_SHAPE);
+    board.drop(ArikaTetromino.I_SHAPE);
 
     expect(board.toString()).to.equalShape(
-      `..IIII....
+      `...IIII...
        ..........
        ..........
        ..........
@@ -78,12 +79,12 @@ describe("Falling I-shape tetrominoes", () => {
   });
 
   it("after one tick drops one level", () => {
-    board.drop(Tetromino.I_SHAPE);
+    board.drop(ArikaTetromino.I_SHAPE);
     board.tick()
 
     expect(board.toString()).to.equalShape(
       `..........
-       ..IIII....
+       ...IIII...
        ..........
        ..........
        ..........
@@ -92,7 +93,7 @@ describe("Falling I-shape tetrominoes", () => {
   });
 
   it("stops at bottom", () => {
-    board.drop(Tetromino.I_SHAPE);
+    board.drop(ArikaTetromino.I_SHAPE);
     for (let i = 0; i < 10; i++) {
       board.tick()
     }
@@ -103,16 +104,16 @@ describe("Falling I-shape tetrominoes", () => {
        ..........
        ..........
        ..........
-       ..IIII....`
+       ...IIII...`
     );
   });
 
     it("stops when another piece is below", () => {
-      board.drop(Tetromino.I_SHAPE);
+      board.drop(ArikaTetromino.I_SHAPE);
       for (let i = 0; i < 10; i++) {
         board.tick()
       }
-      board.drop(Tetromino.I_SHAPE);
+      board.drop(ArikaTetromino.I_SHAPE);
       for (let i = 0; i < 10; i++) {
         board.tick()
       }
@@ -123,8 +124,8 @@ describe("Falling I-shape tetrominoes", () => {
          ..........
          ..........
          ..........
-         ..IIII....
-         ..IIII....`
+         ...IIII...
+         ...IIII...`
       );
   });
 
@@ -135,7 +136,7 @@ describe("Falling I-shape tetrominoes", () => {
     });
   
     it("start from the top middle", () => {
-      board.drop(Tetromino.O_SHAPE);
+      board.drop(ArikaTetromino.O_SHAPE);
   
       expect(board.toString()).to.equalShape(
         `....OO....
@@ -148,7 +149,7 @@ describe("Falling I-shape tetrominoes", () => {
     });
 
     it("stop at the bottom", () => {
-      board.drop(Tetromino.O_SHAPE);
+      board.drop(ArikaTetromino.O_SHAPE);
       for (let i = 0; i < 10; i++) {
         board.tick()
       }
@@ -164,11 +165,11 @@ describe("Falling I-shape tetrominoes", () => {
     });
 
     it("stops if other shape is below", () => {
-      board.drop(Tetromino.O_SHAPE);
+      board.drop(ArikaTetromino.O_SHAPE);
       for (let i = 0; i < 10; i++) {
         board.tick()
       }
-      board.drop(Tetromino.O_SHAPE);
+      board.drop(ArikaTetromino.O_SHAPE);
       for (let i = 0; i < 10; i++) {
         board.tick()
       }
@@ -192,11 +193,11 @@ describe("Falling I-shape tetrominoes", () => {
     });
 
     it("I-shape stops when T-shape is below", () => {
-      board.drop(Tetromino.T_SHAPE);
+      board.drop(ArikaTetromino.T_SHAPE);
       for (let i = 0; i < 10; i++) {
         board.tick()
       }
-      board.drop(Tetromino.I_SHAPE);
+      board.drop(ArikaTetromino.I_SHAPE);
       for (let i = 0; i < 10; i++) {
         board.tick()
       }
@@ -205,22 +206,22 @@ describe("Falling I-shape tetrominoes", () => {
         `..........
          ..........
          ..........
-         ..IIII....
-         ....T.....
-         ...TTT....`
+         ...IIII...
+         ...TTT....
+         ....T.....`
       );
     });
 
     it("O-shape stops when I and T-shape are below", () => {
-      board.drop(Tetromino.T_SHAPE);
+      board.drop(ArikaTetromino.T_SHAPE);
       for (let i = 0; i < 10; i++) {
         board.tick()
       }
-      board.drop(Tetromino.I_SHAPE);
+      board.drop(ArikaTetromino.I_SHAPE);
       for (let i = 0; i < 10; i++) {
         board.tick()
       }
-      board.drop(Tetromino.O_SHAPE);
+      board.drop(ArikaTetromino.O_SHAPE);
       for (let i = 0; i < 10; i++) {
         board.tick()
       }
@@ -229,9 +230,9 @@ describe("Falling I-shape tetrominoes", () => {
         `..........
          ....OO....
          ....OO....
-         ..IIII....
-         ....T.....
-         ...TTT....`
+         ...IIII...
+         ...TTT....
+         ....T.....`
       );
     });
 

@@ -43,8 +43,6 @@ export class ArikaTetromino {
       this.current_rotation = current_rotation
       this.rotations = rotations
       this.shapes = shapes
-      console.log("Constructing new shape. Rotation: ", current_rotation)
-      console.log("shapes current rotation: ", shapes[current_rotation])
       if (typeof shapes[current_rotation] == "string") {
           this.shape = shapes[current_rotation]
             .replaceAll(" ", "")
@@ -65,10 +63,8 @@ export class ArikaTetromino {
     
     rotateLeft() {
       if (this.current_rotation === 0) {
-        console.log("Returning new Tetromino!")
         return new ArikaTetromino(this.rotations, this.rotations, this.shapes)
       }
-      console.log("TURNING LEFT, NO IF.", this.current_rotation, this.rotations)
       return new ArikaTetromino(this.current_rotation - 1, this.rotations, this.shapes)
     }
 
