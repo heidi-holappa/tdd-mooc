@@ -236,8 +236,6 @@ describe("Falling I-shape tetrominoes", () => {
       );
     });
 
-  
-  
   });
 
 });

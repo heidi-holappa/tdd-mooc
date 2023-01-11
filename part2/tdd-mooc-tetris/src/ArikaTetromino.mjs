@@ -99,6 +99,56 @@ export class ArikaTetromino {
       return this.rows()
     }
 
+    tetromino_horizontal_size() {
+      let start_col_index = this.shape.length
+      let end = 0
+      for (let row = 0; row < this.shape.length; row++) {
+        let first_col = this.shape.length
+        let last_col = 0
+        let symbol_found = false
+        for (let col = 0; col < this.shape[0].length; col++) {
+          if (this.shape[row][col] !== ".") {
+            if (!symbol_found) {
+              first_col = col
+              symbol_found = true
+            } 
+            last_col = col
+          }
+        }
+        start_col_index = Math.min(start_col_index, first_col)
+        end = Math.max(end, last_col)
+      }
+      let shape_size = end - start_col_index + 1
+      // console.log(`TETROMINO COL SIZE:\n${this.toString()}\nfirst index:${start_col_index}\nshape size:${shape_size}`)
+      return [start_col_index, shape_size]
+    }
+
+    tetromino_vertical_size() {
+      let start_row_index = this.shape.length
+      let end_row_index = 0
+      for (let col = 0; col < this.shape[0].length; col++) {
+        let first_row = this.shape.length
+        let last_row = 0
+        let symbol_found = false
+        for (let row = 0; row < this.shape.length; row++) {
+          if (this.shape[row][col] !== ".") {
+            if (!symbol_found) {
+              first_row = row
+              symbol_found = true
+            }
+            last_row = row
+          }          
+        }
+        start_row_index = Math.min(start_row_index, first_row)
+        end_row_index = Math.max(end_row_index, last_row)
+      }
+      let shape_size = end_row_index - start_row_index + 1
+      // console.log(`TETROMINO ROW SIZE:\n${this.toString()}\nfirst index:${start_row_index}\nsize:${shape_size}`)
+      return [start_row_index, shape_size]
+    }
+
+
+
     columns() {
       return this.shape[0].length
     }

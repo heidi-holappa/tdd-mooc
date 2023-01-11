@@ -13,6 +13,13 @@ export class Block {
     return 1
   }
 
+  tetromino_vertical_size() {
+    return [0, this.rows()]
+  }
+  tetromino_horizontal_size() {
+    return [0, this.columns()]
+  }
+
   symbolAt(row, col) {
     return this.shape
   }
