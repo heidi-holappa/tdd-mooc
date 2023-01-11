@@ -2,12 +2,6 @@ import { expect } from "chai";
 import { Board } from "../src/Board.mjs";
 import { ArikaTetromino } from "../src/ArikaTetromino.mjs"
 
-function fallToBottom(board) {
-  for (let i = 0; i < 10; i++) {
-    board.tick();
-  }
-}
-
 describe("Falling T-shape tetrominoes", () => {
   let board;
   beforeEach(() => {
