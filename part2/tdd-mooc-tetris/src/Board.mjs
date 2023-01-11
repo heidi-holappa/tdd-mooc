@@ -34,18 +34,6 @@ export class Board {
     let columns = block.columns()
     this.current_col = Math.floor((this.width - columns) / 2)
     this.draw_block()
-    // this.current_row = 0 - this.falling_block.shape_start_row()
-    // let rows = block.rows()
-    // let columns = block.columns()
-    // this.current_col = Math.floor((this.width - columns) / 2)
-    // for (let row = 0; row < rows; row++) {
-    //   if (row + this.current_row < 0) {
-    //     continue
-    //   }
-    //   for (let column = 0; column < columns; column++) {
-    //     this.array_board[row + this.current_row][this.current_col + column] = block.symbolAt(row, column) 
-    //   }
-    // }  
     this.has_falling = true
   }
 
@@ -60,17 +48,6 @@ export class Board {
     this.clear_falling()
     this.current_row += 1
     this.draw_block()
-    // let rows = this.falling_block.rows()
-    // let columns = this.falling_block.columns()
-    // this.current_row += 1
-    // for (let row = 0; row < rows; row++) {
-    //   if (row + this.current_row < 0) {
-    //     continue
-    //   }
-    //   for (let column = 0; column < columns; column++) {
-    //     this.array_board[this.current_row + row][this.current_col + column] = this.falling_block.symbolAt(row, column)
-    //   }
-    // }
   }
 
   can_be_ticked() {
@@ -96,30 +73,6 @@ export class Board {
     this.clear_falling()
     this.current_col -= 1
     this.draw_block()
-    // try {
-    //   this.draw_block()
-    // } catch(err) {
-    //   console.log(`
-    //   Board:\n
-    //   ${this.array_board}
-    //   Falling shape:\n
-    //   ${this.falling_block}
-    //   Error information:\n
-    //   ${err}
-    //   Vertical information:\n
-    //   ${this.falling_block.tetromino_vertical_size()}
-    //   Size information:
-    //   ${this.height - this.current_row}
-    //   Min value for rows:
-    //   ${Math.min(
-    //     this.falling_block.tetromino_vertical_size()[1],
-    //     this.height - this.current_row)
-    //   }
-    //   Column information
-    //   ${this.falling_block.columns()}
-    //   ${this.width - this.current_col}
-    //   `)
-    // }
   }
 
   move_right() {
@@ -196,16 +149,6 @@ export class Board {
     return true
   }
 
-  shape_can_be_moved(col_index) {
-    let rows = this.falling_block.rows()
-    for (let row = 0; row < rows; row++) {
-      if (this.array_board[this.current_row + row][col_index] !== ".") {
-        return false
-      }
-    }
-    return true
-  }
-
   clear_falling() {
     let vertical_information = this.falling_block.tetromino_vertical_size()
     let vertical_start_index = vertical_information[0]
@@ -222,14 +165,11 @@ export class Board {
         }
       }
     }
-    // console.log(this.toString())
   }
 
   draw_block() {
     let vertical_information = this.falling_block.tetromino_vertical_size()
     let vertical_start_index = vertical_information[0]
-    let horizontal_information = this.falling_block.tetromino_horizontal_size()
-    let horizontal_start_index = horizontal_information[0]
     let rows = Math.min(
       vertical_information[1],
       this.height - this.current_row
@@ -240,29 +180,9 @@ export class Board {
     )
     for (let row = 0; row < rows; row++) {
       for (let column = 0; column < columns; column++) {
-        // console.log(`Symbol index: ${row + vertical_start_index}. Rows: ${rows}, Cols: ${columns}, all good: ${rows > row + vertical_start_index}`)
-        // console.log(`Vertical start index + row: ${vertical_start_index + row}`)
         if (this.falling_block.symbolAt(vertical_start_index + row, column) !== ".") {
-          // console.log(`if true. Board symbol: ${this.array_board[this.current_row + row][this.current_col + column]}, shape symbol: ${this.falling_block.symbolAt(row + vertical_start_index, column)} `)
           this.array_board[this.current_row + row][this.current_col + column] = this.falling_block.symbolAt(row + vertical_start_index, column)
         } 
-        // try {
-        //   if (this.falling_block.symbolAt(vertical_start_index + row, column) !== ".") {
-        //     // console.log(`if true. Board symbol: ${this.array_board[this.current_row + row][this.current_col + column]}, shape symbol: ${this.falling_block.symbolAt(row + vertical_start_index, column)} `)
-        //     this.array_board[this.current_row + row][this.current_col + column] = this.falling_block.symbolAt(row + vertical_start_index, column)
-        //   } 
-        // } catch(err) {
-        //   console.log(
-        //   `
-        //   Vertical pos: ${vertical_start_index + row}
-        //   ArrayBoard row: ${this.current_row + row}
-        //   ArrayBoard col: ${this.current_col + column}
-        //   Symbol: ${this.falling_block.symbolAt(row + vertical_start_index, column)}
-        //   Error:
-        //   ${err}
-        //   `
-        //   )
-        // }
       }
     }
   }

@@ -68,26 +68,6 @@ export class ArikaTetromino {
       return new ArikaTetromino(this.current_rotation - 1, this.rotations, this.shapes)
     }
 
-    rows() {
-      let symbol_found = false
-      let length = 0
-      for (let row = 0; row < this.shape.length; row++) {
-        let has_symbol = false
-        for (let col = 0; col < this.shape[0].length; col++) {
-          if (this.shape[row][col] !== ".") {
-            has_symbol = true
-            symbol_found = true
-          }
-        }
-        if (has_symbol || !symbol_found) {
-          length += 1
-        }
-        has_symbol = false
-      }
-      // console.log("Length", length)
-      return length 
-    }
-
     shape_start_row() {
       for (let row = 0; row < this.rows(); row++) {
         for (let col = 0; col < this.columns(); col++) {
@@ -119,7 +99,6 @@ export class ArikaTetromino {
         end = Math.max(end, last_col)
       }
       let shape_size = end - start_col_index + 1
-      // console.log(`TETROMINO COL SIZE:\n${this.toString()}\nfirst index:${start_col_index}\nshape size:${shape_size}`)
       return [start_col_index, shape_size]
     }
 
@@ -142,8 +121,7 @@ export class ArikaTetromino {
         start_row_index = Math.min(start_row_index, first_row)
         end_row_index = Math.max(end_row_index, last_row)
       }
-      let shape_size = end_row_index - start_row_index + 1
-      // console.log(`TETROMINO ROW SIZE:\n${this.toString()}\nfirst index:${start_row_index}\nsize:${shape_size}`)
+      let shape_size = end_row_index - start_row_index + 1      
       return [start_row_index, shape_size]
     }
 
