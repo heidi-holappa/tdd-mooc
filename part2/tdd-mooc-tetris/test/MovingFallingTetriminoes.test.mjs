@@ -29,7 +29,7 @@ describe("Moving falling tetrominoes", () => {
     );
   });
 
-  xit("a falling tetromino can be moved right", () => {
+  it("a falling tetromino can be moved right", () => {
     board.drop(ArikaTetromino.T_SHAPE); 
     board.move_right()
 
@@ -57,7 +57,7 @@ describe("Moving falling tetrominoes", () => {
     );
   });
 
-  xit("it cannot be moved left beyond the board", () => {
+  it("it cannot be moved left beyond the board", () => {
     board.drop(ArikaTetromino.T_SHAPE); 
     for (let i = 0; i < 10; i++) {
       board.move_left()
@@ -73,7 +73,7 @@ describe("Moving falling tetrominoes", () => {
     );
   });
 
-  xit("it cannot be moved right beyond the board", () => {
+  it("it cannot be moved right beyond the board", () => {
     board.drop(ArikaTetromino.T_SHAPE); 
     for (let i = 0; i < 10; i++) {
       board.move_right()
@@ -90,7 +90,7 @@ describe("Moving falling tetrominoes", () => {
   });
 
   it("it cannot be moved down beyond the board (will stop falling)", () => {
-    board.drop(Tetromino.T_SHAPE); 
+    board.drop(ArikaTetromino.T_SHAPE); 
     for (let i = 0; i < 10; i++) {
       board.move_down()
     }
@@ -100,8 +100,8 @@ describe("Moving falling tetrominoes", () => {
        ..........
        ..........
        ..........
-       ....T.....
-       ...TTT....`
+       ...TTT....
+       ....T.....`
     );
   });
 
@@ -110,12 +110,12 @@ describe("Moving falling tetrominoes", () => {
     board.array_board[1][0] = "T"
     board.array_board[1][1] = "T"
     board.array_board[1][2] = "T"
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(ArikaTetromino.T_SHAPE);
     board.move_left()
 
     expect(board.toString()).to.equalShape(
-      `.T..T.....
-       TTTTTT....
+      `.T.TTT....
+       TTT.T.....
        ..........
        ..........
        ..........
@@ -128,12 +128,12 @@ describe("Moving falling tetrominoes", () => {
     board.array_board[1][6] = "T"
     board.array_board[1][7] = "T"
     board.array_board[1][8] = "T"
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(ArikaTetromino.T_SHAPE);
     board.move_right()
 
     expect(board.toString()).to.equalShape(
-      `....T..T..
-       ...TTTTTT.
+      `...TTT.T..
+       ....T.TTT.
        ..........
        ..........
        ..........
@@ -142,9 +142,9 @@ describe("Moving falling tetrominoes", () => {
   });
 
   it("it cannot be moved down through other blocks (will stop falling)", () => {
-    board.drop(Tetromino.T_SHAPE); 
+    board.drop(ArikaTetromino.T_SHAPE); 
     fallToBottom(board);
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(ArikaTetromino.T_SHAPE);
     for (let i = 0; i < 10; i++) {
       board.move_down()
     }
@@ -152,10 +152,10 @@ describe("Moving falling tetrominoes", () => {
     expect(board.toString()).to.equalShape(
       `..........
        ..........
-       ....T.....
        ...TTT....
        ....T.....
-       ...TTT....`
+       ...TTT....
+       ....T.....`
     );
   });
 

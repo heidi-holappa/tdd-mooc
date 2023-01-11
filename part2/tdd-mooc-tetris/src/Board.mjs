@@ -181,13 +181,13 @@ export class Board {
       return
     }
     this.clear_falling()
-    let block_width = block.columns()
-    let block_height = block.rows()
-    if (col + block_width > this.width || row + block_height > this.height) {
+    let shape_width = block.tetromino_horizontal_size()[1]
+    let shape_height = block.tetromino_vertical_size()[1]
+    if (col + shape_width > this.width || row + shape_height > this.height) {
       return false
     }
-    for (let r = 0; r < block_height; r++ ) {
-      for (let c = 0; c < block_width; c++) {
+    for (let r = 0; r < shape_height; r++ ) {
+      for (let c = 0; c < shape_width; c++) {
         if (block.symbolAt(r, c) !== "." && this.array_board[row + r][col + c] !== ".") {
           return false
         }
