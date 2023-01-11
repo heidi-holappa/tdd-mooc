@@ -29,12 +29,17 @@ export class Board {
     if (this.has_falling) {
       throw "already falling"
     }
-    this.falling_block = block
     this.current_row = 0
     let columns = block.columns()
     this.current_col = Math.floor((this.width - columns) / 2)
-    this.draw_block()
+    if (!this.validate_space(block, this.current_row, this.current_col)) {
+      console.log("GAME OVER, MAN. GAME OVER!")
+      this.has_falling = false
+      throw "GAME OVER"
+    }
+    this.falling_block = block
     this.has_falling = true
+    this.draw_block()
   }
 
   tick() {
@@ -106,9 +111,6 @@ export class Board {
   handle_block_rotation(rotated_block) {
     let can_rotate = true
     let start_row = this.current_row
-    if (this.current_row < 0) {
-      start_row = 0
-    }
     if (!this.validate_space(rotated_block, start_row,this.current_col)) {
       can_rotate = false
     }
@@ -129,19 +131,32 @@ export class Board {
     this.draw_block()
   }
 
-  validate_space(block, row, col) {
+  validate_space(block, grid_row, grid_col) {
     if (!this.hasFalling()) {
-      return
+      let rows = block.tetromino_vertical_size()[1]
+      let columns = block.tetromino_horizontal_size()[1]
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < columns; col++) {
+          if (this.array_board[grid_row + row][grid_col + col] !== ".") {
+            console.log(`
+            RETURNING FALSE
+            ${this.toString()}
+            `)
+            return false
+          }
+        }
+      }
+      return true
     }
     this.clear_falling()
     let shape_width = block.tetromino_horizontal_size()[1]
     let shape_height = block.tetromino_vertical_size()[1]
-    if (col + shape_width > this.width || row + shape_height > this.height) {
+    if (grid_col + shape_width > this.width || grid_row + shape_height > this.height) {
       return false
     }
     for (let r = 0; r < shape_height; r++ ) {
       for (let c = 0; c < shape_width; c++) {
-        if (block.symbolAt(r, c) !== "." && this.array_board[row + r][col + c] !== ".") {
+        if (block.symbolAt(r, c) !== "." && this.array_board[grid_row + r][grid_col + c] !== ".") {
           return false
         }
       }

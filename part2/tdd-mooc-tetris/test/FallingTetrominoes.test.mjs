@@ -56,6 +56,19 @@ describe("Falling T-shape tetrominoes", () => {
        ....T.....`
     );
   });
+
+  it("when shape cannot be dropped a GAME OVER is thrown", () => {
+    board.drop(ArikaTetromino.T_SHAPE);
+    fallToBottom(board);
+    board.drop(ArikaTetromino.T_SHAPE);
+    fallToBottom(board);
+    board.drop(ArikaTetromino.T_SHAPE);
+    fallToBottom(board);
+    const before = board.toString();
+    expect(() => board.drop(ArikaTetromino.T_SHAPE)).to.throw("GAME OVER");
+    const after = board.toString();
+    expect(after).to.equal(before);
+  });
 });
 
 describe("Falling I-shape tetrominoes", () => {
