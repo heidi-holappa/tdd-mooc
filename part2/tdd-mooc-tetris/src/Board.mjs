@@ -5,14 +5,15 @@ export class Board {
   constructor(width, height) {
     this.width = width;
     this.height = height;
-    this.current_row = 0
-    this.current_col = 0
+    this.currentRow = 0
+    this.currentColumn = 0
     this.has_falling = false
-    this.falling_block = []
-    this.create_array_board()
+    this.fallingBlock = []
+    // this.createArrayBoard()
+    this.arrayBoard = this.createArrayBoard()
   }
 
-  create_array_board() {
+  createArrayBoard() {
     let board = []
     for (let row = 0; row < this.height; row++) {
       let col = []
@@ -21,7 +22,8 @@ export class Board {
       }
       board.push(col)
     }
-    this.array_board = board;
+    // this.arrayBoard = board;
+    return board
   }
 
 
@@ -29,69 +31,73 @@ export class Board {
     if (this.has_falling) {
       throw "already falling"
     }
-    this.current_row = 0
+    this.currentRow = 0
     let columns = block.columns()
-    this.current_col = Math.floor((this.width - columns) / 2)
-    if (!this.validate_space(block, this.current_row, this.current_col)) {
-      console.log("GAME OVER, MAN. GAME OVER!")
+    this.currentColumn = Math.floor((this.width - columns) / 2)
+    if (!this.validateSpace(block, this.currentRow, this.currentColumn)) {
       this.has_falling = false
       throw "GAME OVER"
     }
-    this.falling_block = block
+    this.fallingBlock = block
     this.has_falling = true
-    this.draw_block()
+    this.drawBlock()
   }
 
   tick() {
     if (!this.has_falling) {
       return
     }
-    if (!this.can_be_ticked()) {
+    if (!this.canBeTicked()) {
+      this.checkAndClearLlines()
       this.has_falling = false
       return
     }
-    this.clear_falling()
-    this.current_row += 1
-    this.draw_block()
+    this.clearFalling()
+    this.currentRow += 1
+    this.drawBlock()
   }
 
-  can_be_ticked() {
-    let rows = this.falling_block.tetromino_vertical_size()[1]
-    let columns = this.falling_block.tetromino_horizontal_size()[1]
-    if (this.height - this.current_row - rows <= 0) {
+  canBeTicked() {
+    let rows = this.fallingBlock.tetrominoVerticalSize()[1]
+    let columns = this.fallingBlock.tetrominoHorizontalSize()[1]
+    let shapeStartColumn = this.currentColumn + this.fallingBlock.tetrominoHorizontalSize()[0]
+    if (this.height - this.currentRow - rows <= 0) {
       return false
     }
     for (let column = 0; column < columns; column++) {
-      if (this.array_board[this.current_row + rows][this.current_col + column] !== ".") {
+      if (this.arrayBoard[this.currentRow + rows][shapeStartColumn + column] !== ".") {
         return false
       }
     }
     return true
   }
 
-  move_left() {
-    let action_is_valid = this.validate_space(this.falling_block, this.current_row, this.current_col - 1)
-    if (!action_is_valid) {
-      this.draw_block()
+  moveLeft() {
+    if (this.currentColumn + this.fallingBlock.tetrominoHorizontalSize()[0] <= 0) {
+      return 
+    }
+    let actionIsValid = this.validateSpace(this.fallingBlock, this.currentRow, this.currentColumn - 1)
+    if (!actionIsValid) {
+      this.drawBlock()
       return
     }
-    this.clear_falling()
-    this.current_col -= 1
-    this.draw_block()
+    this.clearFalling()
+    this.currentColumn -= 1
+    this.drawBlock()
   }
 
-  move_right() {
-    let action_is_valid = this.validate_space(this.falling_block, this.current_row, this.current_col + 1)
+  moveRight() {
+    let action_is_valid = this.validateSpace(this.fallingBlock, this.currentRow, this.currentColumn + 1)
     if (!action_is_valid) {
-      this.draw_block()
+      this.drawBlock()
       return
     }
-    this.clear_falling()
-    this.current_col += 1
-    this.draw_block()
+    this.clearFalling()
+    this.currentColumn += 1
+    this.drawBlock()
   }
 
-  move_down() {
+  moveDown() {
     if (!this.hasFalling()) {
       return
     }
@@ -99,64 +105,60 @@ export class Board {
   }
 
   rotate_falling_tetromino_right() {
-    let rotated_block = this.falling_block.rotateRight()
-    this.handle_block_rotation(rotated_block)
+    let rotatedBlock = this.fallingBlock.rotateRight()
+    this.handleBlockRotation(rotatedBlock)
   }
 
   rotate_falling_tetromino_left() {
-    let rotated_block = this.falling_block.rotateLeft()
-    this.handle_block_rotation(rotated_block)
+    let rotatedBlock = this.fallingBlock.rotateLeft()
+    this.handleBlockRotation(rotatedBlock)
   }
 
-  handle_block_rotation(rotated_block) {
-    let can_rotate = true
-    let start_row = this.current_row
-    if (!this.validate_space(rotated_block, start_row,this.current_col)) {
-      can_rotate = false
+  handleBlockRotation(rotatedBlock) {
+    let canRotate = true
+    let startRow = this.currentRow
+    if (!this.validateSpace(rotatedBlock, startRow,this.currentColumn)) {
+      canRotate = false
     }
-    if (!can_rotate && this.validate_space(rotated_block, start_row, this.current_col - 1)) {
-      this.current_col -= 1
-      can_rotate = true
+    if (!canRotate && this.validateSpace(rotatedBlock, startRow, this.currentColumn - 1)) {
+      this.currentColumn -= 1
+      canRotate = true
     }
-    if (!can_rotate && this.validate_space(rotated_block, start_row, this.current_col + 1)) {
-      this.current_col += 1
-      can_rotate = true
+    if (!canRotate && this.validateSpace(rotatedBlock, startRow, this.currentColumn + 1)) {
+      this.currentColumn += 1
+      canRotate = true
     }
-    if (can_rotate) {
-      if (this.current_row < 0) {
-        this.current_row = 0
+    if (canRotate) {
+      if (this.currentRow < 0) {
+        this.currentRow = 0
       }
-      this.falling_block = rotated_block
+      this.fallingBlock = rotatedBlock
     }
-    this.draw_block()
+    this.drawBlock()
   }
 
-  validate_space(block, grid_row, grid_col) {
+  validateSpace(block, gridRow, gridCol) {
     if (!this.hasFalling()) {
-      let rows = block.tetromino_vertical_size()[1]
-      let columns = block.tetromino_horizontal_size()[1]
+      let rows = block.tetrominoVerticalSize()[1]
+      let columns = block.tetrominoHorizontalSize()[1]
       for (let row = 0; row < rows; row++) {
         for (let col = 0; col < columns; col++) {
-          if (this.array_board[grid_row + row][grid_col + col] !== ".") {
-            console.log(`
-            RETURNING FALSE
-            ${this.toString()}
-            `)
+          if (this.arrayBoard[gridRow + row][gridCol + col] !== ".") {
             return false
           }
         }
       }
       return true
     }
-    this.clear_falling()
-    let shape_width = block.tetromino_horizontal_size()[1]
-    let shape_height = block.tetromino_vertical_size()[1]
-    if (grid_col + shape_width > this.width || grid_row + shape_height > this.height) {
+    this.clearFalling()
+    let shapeWidth = block.tetrominoHorizontalSize()[1]
+    let shapeHeight = block.tetrominoVerticalSize()[1]
+    if (gridCol + shapeWidth > this.width || gridRow + shapeHeight > this.height) {
       return false
     }
-    for (let r = 0; r < shape_height; r++ ) {
-      for (let c = 0; c < shape_width; c++) {
-        if (block.symbolAt(r, c) !== "." && this.array_board[grid_row + r][grid_col + c] !== ".") {
+    for (let r = 0; r < shapeHeight; r++ ) {
+      for (let c = 0; c < shapeWidth; c++) {
+        if (block.symbolAt(r, c) !== "." && this.arrayBoard[gridRow + r][gridCol + c] !== ".") {
           return false
         }
       }
@@ -164,39 +166,83 @@ export class Board {
     return true
   }
 
-  clear_falling() {
-    let vertical_information = this.falling_block.tetromino_vertical_size()
-    let vertical_start_index = vertical_information[0]
-    let horizontal_information = this.falling_block.tetromino_horizontal_size()
-    let horizontal_start_index = horizontal_information[0]
-    let rows = vertical_information[1]
-    let columns = horizontal_information[1]
+  clearFalling() {
+    let verticalInformation = this.fallingBlock.tetrominoVerticalSize()
+    let verticalStartIndex = verticalInformation[0]
+    let horizontalInformation = this.fallingBlock.tetrominoHorizontalSize()
+    let horizontalStartIndex = horizontalInformation[0]
+    let rows = verticalInformation[1]
+    let columns = horizontalInformation[1]
     for (let row = 0; row < rows; row++) {
-      let grid_row_index = this.current_row + row
+      let gridRowIndex = this.currentRow + row
       for (let column = 0; column < columns; column++) {
-        let grid_col_index = this.current_col + column 
-        if (this.falling_block.symbolAt(row + vertical_start_index, column + horizontal_start_index) !== ".") {
-          this.array_board[grid_row_index][grid_col_index + horizontal_start_index] = '.'
+        let gridColIndex = this.currentColumn + column 
+        if (this.fallingBlock.symbolAt(row + verticalStartIndex, column + horizontalStartIndex) !== ".") {
+          this.arrayBoard[gridRowIndex][gridColIndex + horizontalStartIndex] = '.'
         }
       }
     }
   }
 
-  draw_block() {
-    let vertical_information = this.falling_block.tetromino_vertical_size()
-    let vertical_start_index = vertical_information[0]
+  checkAndClearLlines() {
+    let rowsToClear = new Set()
+    for (let row = 0; row < this.height; row++) {
+      let lineIsFull = true
+      for (let col = 0; col < this.width; col++) {
+        if (this.arrayBoard[row][col] === ".") {
+          lineIsFull = false
+        }
+      }
+      if (lineIsFull) {
+        rowsToClear.add(row)
+      }
+    }
+    if (rowsToClear.size === 0) {
+      return
+    }
+    let board = this.createArrayBoard()
+    let cleared = 0
+    // console.log(`Rows to clear: ${[...rowsToClear]}`)
+    for (let row = this.height - 1; row >= 0; row--) {
+      while (true) {
+        if (rowsToClear.has(row - cleared)) {
+          cleared += 1
+        } else {
+          break
+        }
+      }
+      for (let col = 0; col < this.width; col++) {
+        
+        if (row - cleared < 0) {
+          continue
+        }
+        // console.log(`Iterating: row=${row}, col=${col}. Arrayboard symbol: ${this.arrayBoard[row - cleared][col]}`)
+        board[row][col] = this.arrayBoard[row - cleared][col]
+      }
+    }
+    this.arrayBoard = board
+  }
+
+  drawBlock() {
+    let verticalInformation = this.fallingBlock.tetrominoVerticalSize()
+    let verticalStartIndex = verticalInformation[0]
+    let horizontalInformation = this.fallingBlock.tetrominoHorizontalSize()
+    let horizontalStartIndex = horizontalInformation[0]
+    if (this.currentColumn + horizontalInformation[1] + horizontalStartIndex > this.width) {
+      this.currentColumn = this.currentColumn - horizontalStartIndex
+    }
     let rows = Math.min(
-      vertical_information[1],
-      this.height - this.current_row
+      verticalInformation[1],
+      this.height - this.currentRow
     )
     let columns = Math.min(
-      this.falling_block.columns(),
-      this.width - this.current_col
+      this.fallingBlock.columns(),
+      this.width - this.currentColumn
     )
     for (let row = 0; row < rows; row++) {
       for (let column = 0; column < columns; column++) {
-        if (this.falling_block.symbolAt(vertical_start_index + row, column) !== ".") {
-          this.array_board[this.current_row + row][this.current_col + column] = this.falling_block.symbolAt(row + vertical_start_index, column)
+        if (this.fallingBlock.symbolAt(verticalStartIndex + row, column) !== ".") {
+          this.arrayBoard[this.currentRow + row][this.currentColumn + column] = this.fallingBlock.symbolAt(row + verticalStartIndex, column)
         } 
       }
     }
@@ -207,13 +253,13 @@ export class Board {
   }
 
   toString() {
-    let string_board = ""
+    let boardAsString = ""
     for (let row = 0; row < this.height; row++) {
       for (let column = 0; column < this.width; column++) {
-        string_board += this.array_board[row][column]
+        boardAsString += this.arrayBoard[row][column]
       }
-      string_board += "\n"
+      boardAsString += "\n"
     }
-    return string_board;
+    return boardAsString;
   }
 }

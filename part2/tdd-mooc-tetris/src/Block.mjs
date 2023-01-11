@@ -13,10 +13,10 @@ export class Block {
     return 1
   }
 
-  tetromino_vertical_size() {
+  tetrominoVerticalSize() {
     return [0, this.rows()]
   }
-  tetromino_horizontal_size() {
+  tetrominoHorizontalSize() {
     return [0, this.columns()]
   }
 

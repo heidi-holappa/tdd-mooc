@@ -101,7 +101,7 @@ export class Tetromino {
       return this.shape[0].length
     }
 
-    tetromino_vertical_size() {
+    tetrominoVerticalSize() {
       let start_row_index = this.shape.length
       let end_row_index = 0
       for (let col = 0; col < this.shape[0].length; col++) {
@@ -124,7 +124,7 @@ export class Tetromino {
       // console.log(`TETROMINO ROW SIZE:\n${this.toString()}\nfirst index:${start_row_index}\nsize:${shape_size}`)
       return [start_row_index, shape_size]
     }
-    tetromino_horizontal_size() {
+    tetrominoHorizontalSize() {
       let start_col_index = this.shape.length
       let end = 0
       for (let row = 0; row < this.shape.length; row++) {

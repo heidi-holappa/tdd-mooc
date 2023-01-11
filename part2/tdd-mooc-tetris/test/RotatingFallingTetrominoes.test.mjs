@@ -70,7 +70,7 @@ describe("Falling T-shape tetrominoes", () => {
     board.drop(ArikaTetromino.T_SHAPE);
     board.rotate_falling_tetromino_right()
     for (let i = 0; i < 10; i++) {
-      board.move_left()
+      board.moveLeft()
     }
     board.rotate_falling_tetromino_right()
 
@@ -88,13 +88,13 @@ describe("Falling T-shape tetrominoes", () => {
     board.drop(ArikaTetromino.T_SHAPE);
     board.rotate_falling_tetromino_left()
     for (let i = 0; i < 10; i++) {
-      board.move_left()
+      board.moveLeft()
     }
     board.has_falling = false
     board.drop(ArikaTetromino.T_SHAPE)
     board.rotate_falling_tetromino_right()
-    board.move_left()
-    board.move_left()
+    board.moveLeft()
+    board.moveLeft()
     board.rotate_falling_tetromino_right()
 
     expect(board.toString()).to.equalShape(
@@ -113,7 +113,7 @@ describe("Falling T-shape tetrominoes", () => {
     board.drop(ArikaTetromino.T_SHAPE);
     board.rotate_falling_tetromino_left()
     for (let i = 0; i < 10; i++) {
-      board.move_right()
+      board.moveRight()
     }
     board.rotate_falling_tetromino_left()
 

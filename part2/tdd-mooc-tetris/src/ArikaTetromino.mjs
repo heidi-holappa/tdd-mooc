@@ -79,7 +79,7 @@ export class ArikaTetromino {
       return this.rows()
     }
 
-    tetromino_horizontal_size() {
+    tetrominoHorizontalSize() {
       let start_col_index = this.shape.length
       let end = 0
       for (let row = 0; row < this.shape.length; row++) {
@@ -102,7 +102,7 @@ export class ArikaTetromino {
       return [start_col_index, shape_size]
     }
 
-    tetromino_vertical_size() {
+    tetrominoVerticalSize() {
       let start_row_index = this.shape.length
       let end_row_index = 0
       for (let col = 0; col < this.shape[0].length; col++) {
