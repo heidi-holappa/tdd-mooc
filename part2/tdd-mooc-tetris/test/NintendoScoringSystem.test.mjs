@@ -8,33 +8,32 @@ describe("On Nintendo Scoring System", () => {
   });
 
   it("Clearing one line on level zero gives 40 points", () => {
-    let points = nss.getPoints(0, 1);
-    expect(points).to.equal(40); 
+    nss.setPoints(1);
+    expect(nss.getPoints()).to.equal(40); 
   });
 
   it("Clearing two lines on level zero gives 100 points", () => {
-    let points = nss.getPoints(0, 2);
-    expect(points).to.equal(100); 
+    nss.setPoints(2)
+    expect(nss.getPoints()).to.equal(100); 
 
   });
 
   it("Clearing three lines on level zero gives 300 points", () => {
-    let points = nss.getPoints(0, 3);
-    expect(points).to.equal(300); 
+    nss.setPoints(3)
+    expect(nss.getPoints()).to.equal(300); 
 
   });
 
   it("Clearing four lines on level zero gives 1200 points", () => {
-    let points = nss.getPoints(0, 4);
-    expect(points).to.equal(1200); 
+    nss.setPoints(4)
+    expect(nss.getPoints()).to.equal(1200); 
 
   });
 
   it("Clearing 4 lines on level 9 gives 12000 points", () => {
-    let level = 9
-    let lines = 4
-    let points = nss.getPoints(level, lines);
-    expect(points).to.equal(12000); 
+    nss.level = 9
+    nss.setPoints(4)
+    expect(nss.getPoints()).to.equal(12000); 
   });
 
 });

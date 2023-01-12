@@ -48,7 +48,7 @@ export class Board {
       return
     }
     if (!this.canBeTicked()) {
-      this.checkAndClearLlines()
+      this.checkAndClearLines()
       this.has_falling = false
       return
     }
@@ -184,7 +184,7 @@ export class Board {
     }
   }
 
-  checkAndClearLlines() {
+  checkAndClearLines() {
     let rowsToClear = new Set()
     for (let row = 0; row < this.height; row++) {
       let lineIsFull = true
