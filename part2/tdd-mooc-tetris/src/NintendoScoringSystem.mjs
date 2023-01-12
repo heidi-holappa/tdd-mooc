@@ -1,4 +1,3 @@
-// Pointsystem here.
 export class NintendoScoringSystem {
     constructor() {
         this.lines = {
