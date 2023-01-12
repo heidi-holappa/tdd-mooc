@@ -37,7 +37,83 @@ export class ArikaTetromino {
     [`....
      .OO.
      .OO.
-     ....`]) 
+     ....`])
+
+    static Z_SHAPE = new ArikaTetromino(
+      0,
+      1,
+      [
+      `....
+       ZZ..
+       .ZZ.
+       ....`,
+      `..Z.
+       .ZZ.
+       .Z..
+       ....`
+      ]  
+    )
+
+    static Z_SHAPE_INVERSE = new ArikaTetromino(
+      0,
+      1,
+      [
+      `....
+       .ZZ.
+       ZZ..
+       ....`,
+      `Z...
+       ZZ..
+       .Z..
+       ....`
+      ]  
+    )
+
+    static L_SHAPE = new ArikaTetromino(
+      0,
+      3,
+      [
+      `....
+       LLL.
+       L...
+       ....`,
+      `LL..
+       .L..
+       .L..
+       ....`,
+      `....
+       ..L.
+       LLL.
+       ....`,
+      `.L..
+       .L..
+       .LL.
+       ....`
+      ]
+    )
+
+    static L_SHAPE_INVERSE = new ArikaTetromino(
+      0,
+      3,
+      [
+      `....
+       LLL.
+       ..L.
+       ....`,
+      `.L..
+       .L..
+       LL..
+       ....`,
+      `....
+       L...
+       LLL.
+       ....`,
+      `.LL.
+       .L..
+       .L..
+       ....`
+      ]
+    )
 
     constructor (current_rotation, rotations, shapes) {
       this.current_rotation = current_rotation

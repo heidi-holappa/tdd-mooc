@@ -28,7 +28,7 @@ export class ShuffleBag {
         let swappableItem = this.items[swappableItemIndex]
         let currentItemIndex = this.nextItem
         this.swapItems(currentItemIndex, swappableItemIndex)
-        this.nextItem -= 1 
+        this.nextItem -= 1
         return this.items[currentItemIndex]        
     }
 
