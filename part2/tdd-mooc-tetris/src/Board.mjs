@@ -1,15 +1,17 @@
+import { LinesClearedObserver } from "./LinesClearedObserver.mjs";
+
 export class Board {
   width;
   height;
 
-  constructor(width, height) {
+  constructor(width, height, observer = new LinesClearedObserver()) {
     this.width = width;
     this.height = height;
     this.currentRow = 0
     this.currentColumn = 0
     this.has_falling = false
     this.fallingBlock = []
-    // this.createArrayBoard()
+    this.notifier = observer
     this.arrayBoard = this.createArrayBoard()
   }
 
@@ -22,7 +24,6 @@ export class Board {
       }
       board.push(col)
     }
-    // this.arrayBoard = board;
     return board
   }
 
@@ -221,6 +222,7 @@ export class Board {
       }
     }
     this.arrayBoard = board
+    this.notifier.notifyLinesCleared(cleared)
   }
 
   drawBlock() {
