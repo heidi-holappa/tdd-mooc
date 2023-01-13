@@ -74,14 +74,16 @@ describe("A shuffleBack", () => {
         let items = shuffleBagTwo.itemCount()
         for (let i = 0; i < items; i++) {
             let shuffleBagItem = shuffleBagTwo.getItem().toString()
-            let tetrominoItem = tetrominoItems.pop().toString() 
-            console.log(`
-            SHAPES:
-            Shufflebag item count: ${shuffleBagTwo.itemCount()}
-            ${shuffleBagItem}
-            ${tetrominoItem}
-            `)
-            orderRemainsSame = tetrominoItem === shuffleBagItem
+            let tetrominoItem = tetrominoesBagTwo[tetrominoesBagTwo.length - i - 1][1]
+            // console.log(`
+            // SHAPES:
+            // Shufflebag item count: ${shuffleBagTwo.itemCount()}
+            // ${shuffleBagItem}
+            // ${tetrominoItem}
+            // `)
+            if (orderRemainsSame && tetrominoItem !== shuffleBagItem) {
+                orderRemainsSame = false
+            }
         }
         expect(orderRemainsSame).to.equal(false)
     })

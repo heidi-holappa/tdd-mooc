@@ -25,11 +25,10 @@ export class ShuffleBag {
             return this.items[0]
         }
         let swappableItemIndex = Math.floor(Math.random()*this.nextItem)
-        let swappableItem = this.items[swappableItemIndex]
         let currentItemIndex = this.nextItem
         this.swapItems(currentItemIndex, swappableItemIndex)
         this.nextItem -= 1
-        return this.items[currentItemIndex]        
+        return this.items[currentItemIndex]
     }
 
     swapItems(item, swappableItem) {
