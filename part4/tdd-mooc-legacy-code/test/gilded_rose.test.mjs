@@ -1,6 +1,5 @@
 import { expect } from "chai";
 import { Item, Shop } from "../src/gilded_rose.mjs";
-import { RefactoredItem, RefactoredShop } from "../src/RefactoredGildedRose.mjs";
 
 describe("Gilded Rose", () => {
   it("should foo", () => {
@@ -9,8 +8,8 @@ describe("Gilded Rose", () => {
     expect(items[0].name).to.equal("foo");
   });
 
-  it("foo's quality remains zero", () => {
-    const gildedRose = new Shop([new Item("foo", 0, 0)]);
+  it("Generally item's quality does not decrease below zero", () => {
+    const gildedRose = new Shop([new Item("Amulet of Wisdom", 0, 0)]);
     const items = gildedRose.updateQuality();
     expect(items[0].quality).to.equal(0);
   });
@@ -26,13 +25,6 @@ describe("Gilded Rose", () => {
     const items = gildedRose.updateQuality();
     expect(items[0] instanceof Item).to.equal(true);
   });
-
-  // Accidentally started refactoring tests too soon.
-  // it("When an Item is placed in the store, it should be found from the store catalog", () => {
-  //   const RefactoredGildedRose = new RefactoredShop([new RefactoredItem("Amulet of Wisdom", 0, 0)]);
-  //   const items = RefactoredGildedRose.items;
-  //   expect(items[0].name).to.equal("Amulet of Wisdom");
-  // });
 
   it("foo should have zero quality", () => {
     const gildedRose = new Shop([new Item("foo", 1, 1)]);
