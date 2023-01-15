@@ -175,4 +175,16 @@ describe("Gilded Rose", () => {
     const items = gildedRose.updateQuality();
     expect(items[0].quality).to.equal(48);
   });
+
+  it("Conjured items with sellIn value zero or more degrade two in quality", () => {
+    const gildedRose = new Shop([new Item("Conjured item", 0, 50)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).to.equal(48);
+  });
+
+  it("Conjured items with sellIn value less than zero degrage four in quality", () => {
+    const gildedRose = new Shop([new Item("Conjured item", -1, 50)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).to.equal(46);
+  });
 });
