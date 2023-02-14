@@ -4,24 +4,25 @@ import argon2 from "@node-rs/argon2"
 
 describe("Untestable 4: enterprise application", () => {
   let service
-  let dao
+  let users
   beforeEach(() => {
     service = new PasswordService()
-    dao = new PostgresUserDao()
+    users = PostgresUserDao.getInstance()
   })
 
-  afterEach(() => {
-    PostgresUserDao.getInstance().close()
-  })
-
-  xit("todo", async () => {
-    // TODO: write proper tests
-  })
+  afterEach(() => {})
 
   it("password can be changed", async () => {
     const password = argon2.hashSync("salasana")
-    dao.save([1, password])
-    const result = service.changePassword(1, "salasana", "salasana")
+    users.save([1, password])
+    const result = await service.changePassword(1, password, "kalasana")
     expect(result).to.not.equal(password)
+  })
+
+  it("giving the same password as old and new does not change the password", async () => {
+    const password = argon2.hashSync("salasana")
+    users.save([1, password])
+    const result = await service.changePassword(1, password, "salasana")
+    expect(result).to.equal(password)
   })
 })
