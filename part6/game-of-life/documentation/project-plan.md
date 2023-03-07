@@ -20,8 +20,18 @@ The game mechanics follows these four simple rules:
 - [x] Make crude plan for project structure. Don't write any code though!
 - [x] Create task list
 - [ ] Setup venv
-- [ ] Install packages
+- [ ] Install packages for testing (including coverage / mutation)
+- [ ] Install package for Argument parser (if necessary)
+- [ ] Install package for Invoke (if needed)
+- [ ] create requirements.txt
 - [x] Create initial README.md
+
+**File management**
+
+- [ ] An RLE-file can be read (parsed)
+- [ ] RLE file content is stored into a data structure
+- [ ] A board state is created from the loaded data
+- [ ] A board state is saved into an RLE file
 
 **Game of Life functionalities**
 
@@ -32,10 +42,3 @@ The game mechanics follows these four simple rules:
 - [ ] Board with three neighboring cells remains unchanged after one tick
 - [ ] Board with four neighboring cells becomes empty after one tick
 - [ ] A cell with exactly three neighboring cells becomes alive after one tick
-
-**File management**
-
-- [ ] An RLE-file can be read
-- [ ] RLE file content is stored into a data structure
-- [ ] A board setup is created from the loaded data
-- [ ] A board setup is saved into an RLE file
