@@ -4,7 +4,7 @@ This project is the final exercise for the MOOC course [TDD](https://tdd.mooc.fi
 
 ## Documentation
 
-- [project plan](/documentation/project-plan.md)
+- [project plan](part6/game-of-life/documentation/project-plan.md)
 
 ## Recordings
 
