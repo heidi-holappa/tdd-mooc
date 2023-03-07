@@ -37,3 +37,9 @@ Optional: Create mutation test coverage report with
 ```
 <insert command here>
 ```
+
+## Links
+
+- [Wikipedia: Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life): A Wikipedia article on game of life
+
+- [Run Length Encoded](https://conwaylife.com/wiki/Run_Length_Encoded): documentation for RLE-file format
