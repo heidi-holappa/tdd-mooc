@@ -4,6 +4,7 @@ coverage==7.2.1
 exceptiongroup==1.1.0
 glob2==0.7
 iniconfig==2.0.0
+invoke==2.0.0
 junit-xml==1.8
 mutmut==2.4.3
 packaging==23.0
