@@ -38,6 +38,11 @@ Optional: Create mutation test coverage report with
 <insert command here>
 ```
 
+## Video recordings
+
+- [Part 1: Setting up the project](https://youtu.be/NTwA7fSnCFI) [app. 25 mins]
+- [Part 2: Writing the first tests](#)
+
 ## Links
 
 - [Wikipedia: Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life): A Wikipedia article on game of life
