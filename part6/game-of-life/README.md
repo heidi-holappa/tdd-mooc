@@ -20,22 +20,24 @@ pip install -r requirements.txt
 
 ## How to use
 
-Run tests with
+To run unit tests
 
 ```
-<insert command here>
+VIRTUAL ENVIRONMENT: invoke test
+W/O VIRTUAL ENV: python3 -m pytest src/tests/
 ```
 
 Create coverage report with
 
 ```
-<insert command here>
+VIRTUAL ENVIRONMENT: invoke coverage-test
+W/O VIRTUAL ENV: coverage run -m pytest src/tests/
 ```
 
 Optional: Create mutation test coverage report with
 
 ```
-<insert command here>
+<TBA - insert command here>
 ```
 
 ## Video recordings
