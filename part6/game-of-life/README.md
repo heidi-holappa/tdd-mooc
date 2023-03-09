@@ -42,8 +42,10 @@ Optional: Create mutation test coverage report with
 
 - [Part 1: Setting up the project](https://youtu.be/NTwA7fSnCFI) [app. 25 mins]
 - [Part 2: Writing the first tests](https://youtu.be/wU2ub4HU2Zs) [app. 1 hr] Writing the first tests and first code. Making some misteps and correcting course.
+- **Part 3-1**: [app. 1 hr 10 min] I had a terrible accident and forgot to turn recording on. I noticed this one hour into work.
+- [Part 3: finishing the core game mechanics](https://youtu.be/qWHYmxeu14I): [app. 40 minutes] I start with a code review to go through what was done in the unrecorded segment. Then we continue to write code for the 'game'-functionalities.
 
-**Total time spent: 1 h 25 min**
+**Total time spent: 3 h 15 min**
 
 ## Links
 
