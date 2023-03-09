@@ -25,7 +25,6 @@ The game mechanics follows these four simple rules:
 - [x] Install package for Invoke (if needed)
 - [x] create requirements.txt
 - [x] Create initial README.md
-- [ ] Remember to mention the mistake made with the glider setup
 
 **File management**
 
