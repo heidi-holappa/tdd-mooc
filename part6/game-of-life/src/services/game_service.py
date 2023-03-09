@@ -65,6 +65,7 @@ class GameService:
                 else:
                     if neighbours in [2,3]:
                         new_grid[row_idx][col_idx] = 1
+                print(row_idx, col_idx, neighbours)
         self.expanded_grid = new_grid
     
     def create_updated_grid(self, 

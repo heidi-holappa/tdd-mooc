@@ -64,7 +64,7 @@ class TestGameService(unittest.TestCase):
         self.assertEqual(glider_state_three, self.game_service.expanded_grid)
 
     
-    def test_after_one_tick_glider_in_state_two_is_properly_trimmed(self):
+    def test_after_one_tick_expanded_glider_in_state_two_is_properly_trimmed(self):
         glider_state_two_expanded_grid = [
             [0,0,0,0,0],
             [0,0,0,0,0],
@@ -82,16 +82,63 @@ class TestGameService(unittest.TestCase):
         self.assertEqual(trimmed_grid_should_be, self.game_service.grid)
 
     
+    def test_after_one_tick_glider_position_is_correctly_in_state_two(self):
+        glider_state_one = [
+            [0,1,0],
+            [0,0,1],
+            [1,1,1],
+        ]
+        self.game_service.grid = glider_state_one
+        self.game_service.tick()
+
+        glider_state_two = [
+            [1,0,1],
+            [0,1,1],
+            [0,1,0],
+        ]
+        self.assertEqual(glider_state_two, self.game_service.grid)
+
+    def test_after_one_tick_glider_position_is_correctly_in_state_three(self):
+        glider_state_two = [
+            [1,0,1],
+            [0,1,1],
+            [0,1,0],
+        ]
+        self.game_service.grid = glider_state_two
+        self.game_service.tick()
+
+        glider_state_three = [
+            [0,0,1],
+            [1,0,1],
+            [0,1,1],
+        ]
+        self.assertEqual(glider_state_three, self.game_service.grid)
+
+    def test_after_two_ticks_glider_starting_in_state_one_is_in_state_three(self):
+        glider_state_one = [
+            [0,1,0],
+            [0,0,1],
+            [1,1,1],
+        ]
+        self.game_service.grid = glider_state_one
+        self.game_service.tick()
+        self.game_service.tick()
+        glider_state_three = [
+            [0,0,1],
+            [1,0,1],
+            [0,1,1],
+        ]
+        self.assertEqual(glider_state_three, self.game_service.grid)
+
+    def test_one_dead_and_two_live_cells_returns_a_grid_with_two_live_cells(self):
+        grid = [[0, 1, 1, 1]]
+        self.game_service.grid = grid
+        self.game_service.tick()
+        self.assertEqual([[1], [1], [1]], self.game_service.grid)
     
-    def live_cell_with_no_living_neighbours_dies(self):
+    def test_live_cell_with_no_living_neighbours_dies(self):
         grid = [[1]]
         self.game_service.grid = grid
         self.game_service.tick()
         self.assertEqual([], self.game_service.grid)
     
-    # Commented out for now
-    def one_dead_and_two_live_cells_returns_a_grid_with_two_live_cells(self):
-        grid = [[0, 1, 1]]
-        self.game_service.grid = grid
-        self.game_service.tick()
-        self.assertEqual([[1,1]], self.game_service.grid)
