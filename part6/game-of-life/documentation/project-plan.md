@@ -25,6 +25,7 @@ The game mechanics follows these four simple rules:
 - [x] Install package for Invoke (if needed)
 - [x] create requirements.txt
 - [x] Create initial README.md
+- [ ] Remember to mention the mistake made with the glider setup
 
 **File management**
 
@@ -35,7 +36,7 @@ The game mechanics follows these four simple rules:
 
 **Game of Life functionalities**
 
-- [ ] Investigate and decide a data structure for storing cell states
+- [x] Investigate and decide a data structure for storing cell states
 - [ ] The game state is returned after one tick
 - [ ] cell with no neighbours dies after one tick
 - [ ] Cell with two neighboring cells remains unchanged after one tick
@@ -57,9 +58,9 @@ An initial idea on how to do one tick.
 
 ```
                     0 0 0 0 0              0 0 0 0 0
-0 1 0               0 0 1 0 0              0 0 0 0 0            0 1
-0 0 1  = expand =>  0 0 0 1 0  = update => 0 0 0 1 0  = trim => 1 1
-1 1 1               0 1 1 1 0              0 0 1 1 0            1 0
+0 1 0               0 0 1 0 0              0 0 0 0 0            1 0 1
+0 0 1  = expand =>  0 0 0 1 0  = update => 0 1 0 1 0  = trim => 0 1 1
+1 1 1               0 1 1 1 0              0 0 1 1 0            0 1 0
                     0 0 0 0 0              0 0 1 0 0
 ```
 
