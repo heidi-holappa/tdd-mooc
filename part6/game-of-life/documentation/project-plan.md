@@ -37,11 +37,11 @@ The game mechanics follows these four simple rules:
 
 - [x] Investigate and decide a data structure for storing cell states
 - [ ] The game state is returned after one tick
-- [ ] cell with no neighbours dies after one tick
-- [ ] Cell with two neighboring cells remains unchanged after one tick
-- [ ] Cell with three neighboring cells remains unchanged after one tick
-- [ ] Cell with four neighboring cells dies after one tick
-- [ ] A dead cell with exactly three neighboring cells becomes alive after one tick
+- [x] Live cell with no neighbours dies after one tick
+- [x] Live cell with two neighboring cells remains unchanged after one tick
+- [x] Live cell with three neighboring cells remains unchanged after one tick
+- [x] Live cell with four neighboring cells dies after one tick
+- [x] A dead cell with exactly three neighboring cells becomes alive after one tick
 
 ## Planning the data structure
 
@@ -68,3 +68,30 @@ An initial idea on how to do one tick.
 - **Expand:** The grid is expanded by adding 2 two both dimensions, i.e. $x = x + 2$ and $y = y + 2$.
 - **Update:** In update phase the expanded board is gone through and the new board is updated based on the game rules.
 - **trim:** The grid is trimmed by creating the smallest possible rectangle with live cells in it. All live cells must be in the trimmed grid. **To consider:** How to keep track of the location while moving.
+
+## Initial plan for parser
+
+**First step:** Create functionality for parsing the pattern.
+
+# RLE - examples
+
+Blinker:
+
+```
+#N Blinker
+#O John Conway
+#C A period 2 oscillator that is the smallest and most common oscillator.
+#C www.conwaylife.com/wiki/index.php?title=Blinker
+x = 3, y = 1, rule = B3/S23
+3o!
+```
+
+Highlife 5-cell still lifes
+
+```
+#N HighLife 5-cell still lifes
+#C The only 5-cell still life in the HighLife (23/36) rule.
+#C www.conwaylife.com/wiki/index.php?title=HighLife
+x = 3, y = 3, rule = 23/36
+2ob$obo$bo!
+```
