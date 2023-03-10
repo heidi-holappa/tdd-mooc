@@ -30,7 +30,7 @@ class GameService:
                     y_min = min(y_min, i)
                     y_max = i
                     x_max = max(x_max, j)
-        self.create_updated_grid(x_min, x_max, y_min, y_max)
+        self.create_updated_trimmed_grid(x_min, x_max, y_min, y_max)
     
     def create_expanded_grid(self):
         increased_x = len(self.grid[0]) + 2
@@ -68,7 +68,7 @@ class GameService:
                 print(row_idx, col_idx, neighbours)
         self.expanded_grid = new_grid
     
-    def create_updated_grid(self, 
+    def create_updated_trimmed_grid(self, 
                             x_min: int, 
                             x_max: int,
                             y_min: int,
