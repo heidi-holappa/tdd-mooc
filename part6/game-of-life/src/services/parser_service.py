@@ -7,27 +7,34 @@ class ParserService:
         self.pattern_as_grid = []
 
     def create_grid_from_pattern(self):
+        """
+            Note: cell_multiplier is tuple that keeps track of whether the multiplier has been updated.
+            It it has been updated, then any additional integers will be concatenated with the existing string
+            When the grid is updated, the cell_multiplier tuple will be reset. 
+        """
         self.pattern_as_grid = [[0]* self.x_dim for _ in range(self.y_dim)]
         str_idx = 0
         for y in range(self.y_dim):
-            print(str_idx)
             x = 0
+            cell_multiplier = ("1", False)
             while x < self.x_dim:
                 if self.pattern_as_str[str_idx] == "!":
                     break
                 if self.pattern_as_str[str_idx].isdigit():
-                    x_length = int(self.pattern_as_str[str_idx])
-                    if self.pattern_as_str[str_idx + 1] == "o":
-                        self.pattern_as_grid[y][x:x + x_length] = [1]*x_length
+                    if not cell_multiplier[1]:
+                        cell_multiplier = (self.pattern_as_str[str_idx], True)
+                    else:
+                        cell_multiplier = (cell_multiplier[0] + self.pattern_as_str[str_idx], True)
+                    str_idx += 1
+                    print(f"str_idx: {str_idx}, cell-multiplier: {cell_multiplier}")
+                    continue
+                if self.pattern_as_str[str_idx] == "o" or self.pattern_as_str[str_idx] == "b":
+                    cell_value = int(bool(self.pattern_as_str[str_idx] == "o"))
+                    x_length = int(cell_multiplier[0])
+                    self.pattern_as_grid[y][x:x + x_length] = [cell_value]*x_length
+                    str_idx += 1
                     x += x_length
-                    str_idx += 2
-                if self.pattern_as_str[str_idx] == "o":
-                    self.pattern_as_grid[y][x] = 1
-                    str_idx += 1
-                    x += 1
-                if self.pattern_as_str[str_idx] == "b":
-                    str_idx += 1
-                    x += 1
+                    cell_multiplier = ("1", False)
                 if self.pattern_as_str[str_idx] == "$":
                     str_idx += 1
                     break
