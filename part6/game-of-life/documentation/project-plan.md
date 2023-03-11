@@ -45,6 +45,13 @@ The game mechanics follows these four simple rules:
 - [x] multi-line pattern can be written into the new file
 - [ ] # R - line can be included in the file
 
+**Argument parser**
+
+- [ ] Argument parser extracts import rle-filename
+- [ ] Argument parser extracts n of iterations
+- [ ] Argument parser extracts optional export filename
+- [ ] (related to file management) if no export filename is given, default rle-filename is used
+
 **Parsing pattern**
 
 - [x] x-dimension can be parsed
