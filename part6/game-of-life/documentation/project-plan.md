@@ -40,8 +40,9 @@ The game mechanics follows these four simple rules:
 
 - [x] Content of RLE-file can be read
 - [x] A new file can be created
-- [ ] x- and y-dim can be written into the new file
-- [ ] pattern can be written into the new file
+- [x] x- and y-dim can be written into the new file
+- [x] single line pattern can be written into the new file
+- [x] multi-line pattern can be written into the new file
 - [ ] # R - line can be included in the file
 
 **Parsing patter**
@@ -49,7 +50,7 @@ The game mechanics follows these four simple rules:
 - [x] x-dimension can be parsed
 - [x] y-dimension can be parsed
 - [x] 1-line pattern pattern can be parsed into str
-- [ ] multiple line pattern can be parsed into a str
+- [x] multiple line pattern can be parsed into a str
 - [x] pattern with length-1 integer values can be transformed into grid form
 - [ ] pattern with length-1+ integer values can be transforme into grid form
 - [ ] # x- and y-coordinated can be parsed from #R - line
