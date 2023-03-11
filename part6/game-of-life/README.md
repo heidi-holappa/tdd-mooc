@@ -22,6 +22,14 @@ pip install -r requirements.txt
 
 The commands can easily be run in Virtual environment (venv) with the following invoke commands:
 
+Running the application:
+
+```
+invoke start [filename] [iterations]
+```
+
+Use `invoke --help start` for instructions.
+
 Unittests
 
 ```
@@ -41,6 +49,12 @@ mutmut run
 ```
 
 ## Commands without venv
+
+Starting the application without venv:
+
+```
+python3 src/index.py --imp=[filename] --iter=[iterations]
+```
 
 To run the tests without virtual environment use the following commands:
 
