@@ -49,5 +49,13 @@ class ParserService:
 
     def create_rle_file(self, filename: str):
         with open(filename, "w", encoding="utf-8") as file:
-            file.write("Done")
+            file.write(f"x =  {self.x_dim}, y = {self.y_dim}\n")
+            pattern_max_line_length = 70
+            split_pattern = [self.pattern_as_str[i: i + pattern_max_line_length] for i in range(0, len(self.pattern_as_str), pattern_max_line_length)]
+            for i in range(len(split_pattern)):
+                if i + 1 < len(split_pattern):
+                    file.write(split_pattern[i] + "\n")
+                else:
+                    file.write(split_pattern[i])
+            file.close()
 
