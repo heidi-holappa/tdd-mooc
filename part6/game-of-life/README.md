@@ -47,8 +47,9 @@ Optional: Create mutation test coverage report with
 - **Part 3-1**: [app. 1 hr 10 min] I had a terrible accident and forgot to turn recording on. I noticed this one hour into work.
 - [Part 3: finishing the core game mechanics](https://youtu.be/qWHYmxeu14I): [app. 40 minutes] I start with a code review to go through what was done in the unrecorded segment. Then we continue to write code for the 'game'-functionalities.
 - [Part 4: Creating first features for parser service](https://youtu.be/iZ_p3b-887w): [app 1 h 55 min]
+- [Part 5: Expanding parsing functionalities](https://youtu.be/QHInGAFZcoI): [app 1 h 50 min]
 
-**Total time spent: 5 h 10 min**
+**Total time spent: app. 7 h 00 min**
 
 ## Links
 
