@@ -18,7 +18,7 @@ Install packages with
 pip install -r requirements.txt
 ```
 
-##
+## Commands in venv
 
 The commands can easily be run in Virtual environment (venv) with the following invoke commands:
 
@@ -39,6 +39,8 @@ Mutation tests:
 ```
 mutmut run
 ```
+
+## Commands without venv
 
 To run the tests without virtual environment use the following commands:
 
