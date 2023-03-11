@@ -18,26 +18,40 @@ Install packages with
 pip install -r requirements.txt
 ```
 
-## How to use
+##
 
-To run unit tests
+The commands can easily be run in Virtual environment (venv) with the following invoke commands:
 
-```
-VIRTUAL ENVIRONMENT: invoke test
-W/O VIRTUAL ENV: python3 -m pytest src/tests/
-```
-
-Create coverage report with
+Unittests
 
 ```
-VIRTUAL ENVIRONMENT: invoke coverage-test
-W/O VIRTUAL ENV: coverage run -m pytest src/tests/
+invoke test
 ```
 
-Optional: Create mutation test coverage report with
+Coverage
 
 ```
-<TBA - insert command here>
+invoke coverage-test
+```
+
+Mutation tests:
+
+```
+mutmut run
+```
+
+To run the tests without virtual environment use the following commands:
+
+Unittests:
+
+```
+python3 -m pytest src/tests/
+```
+
+Coverage:
+
+```
+coverage run -m pytest src/tests/
 ```
 
 ## Video recordings
