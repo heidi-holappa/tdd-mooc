@@ -49,8 +49,9 @@ Optional: Create mutation test coverage report with
 - [Part 4: Creating first features for parser service](https://youtu.be/iZ_p3b-887w): [app 1 h 55 min]
 - [Part 5: Expanding parsing functionalities](https://youtu.be/QHInGAFZcoI): [app 1 h 50 min]
 - [Part 6: The part in which nothing progresses, and I just fight with ArgumentParser](https://youtu.be/-Js_cB73ZrE) [1 h 5 min]
+- [Part 7: Back on track](https://youtu.be/mRiI4agXNDI): [app 1 h 5 min]
 
-**Total time spent: app. 8 h 05 min**
+**Total time spent: app. 9 h 10 min**
 
 ## Links
 
