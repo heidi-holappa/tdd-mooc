@@ -26,13 +26,6 @@ The game mechanics follows these four simple rules:
 - [x] create requirements.txt
 - [x] Create initial README.md
 
-**File management**
-
-- [ ] An RLE-file can be read (parsed)
-- [ ] RLE file content is stored into a data structure
-- [ ] A board state is created from the loaded data
-- [ ] A board state is saved into an RLE file
-
 **Game of Life functionalities**
 
 - [x] Investigate and decide a data structure for storing cell states
@@ -42,6 +35,24 @@ The game mechanics follows these four simple rules:
 - [x] Live cell with three neighboring cells remains unchanged after one tick
 - [x] Live cell with four neighboring cells dies after one tick
 - [x] A dead cell with exactly three neighboring cells becomes alive after one tick
+
+**File management**
+
+- [x] Content of RLE-file can be read
+- [x] A new file can be created
+- [ ] x- and y-dim can be written into the new file
+- [ ] pattern can be written into the new file
+- [ ] # R - line can be included in the file
+
+**Parsing patter**
+
+- [x] x-dimension can be parsed
+- [x] y-dimension can be parsed
+- [x] 1-line pattern pattern can be parsed into str
+- [ ] multiple line pattern can be parsed into a str
+- [x] pattern with length-1 integer values can be transformed into grid form
+- [ ] pattern with length-1+ integer values can be transforme into grid form
+- [ ] # x- and y-coordinated can be parsed from #R - line
 
 ## Planning the data structure
 
@@ -69,11 +80,7 @@ An initial idea on how to do one tick.
 - **Update:** In update phase the expanded board is gone through and the new board is updated based on the game rules.
 - **trim:** The grid is trimmed by creating the smallest possible rectangle with live cells in it. All live cells must be in the trimmed grid. **To consider:** How to keep track of the location while moving.
 
-## Initial plan for parser
-
-**First step:** Create functionality for parsing the pattern.
-
-# RLE - examples
+## RLE - examples
 
 Blinker:
 
@@ -94,4 +101,15 @@ Highlife 5-cell still lifes
 #C www.conwaylife.com/wiki/index.php?title=HighLife
 x = 3, y = 3, rule = 23/36
 2ob$obo$bo!
+```
+
+Gosper glider gun
+
+```
+#N Gosper glider gun
+#C This was the first gun discovered.
+#C As its name suggests, it was discovered by Bill Gosper.
+x = 36, y = 9, rule = B3/S23
+24bo$22bobo$12b2o6b2o12b2o$11bo3bo4b2o12b2o$2o8bo5bo3b2o$2o8bo3bob2o4b
+obo$10bo5bo7bo$11bo3bo$12b2o!
 ```
