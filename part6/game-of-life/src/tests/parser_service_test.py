@@ -7,7 +7,7 @@ class TestParserService(unittest.TestCase):
     def setUp(self):
         self.parser = ParserService()
         self.directory_name = os.path.dirname(__file__)
-        self.path = os.path.join(self.directory_name, "rle-test-files/")
+        self.path = os.path.join(self.directory_name, '..', '..', "rle-files/")
     
     def test_glider_state_one_is_parsed_into_grid_correctly(self):
         self.parser.x_dim = 3
@@ -87,18 +87,12 @@ class TestParserService(unittest.TestCase):
         self.assertEqual(multiline_pattern, self.parser.pattern_as_str)
     
     def test_new_rle_file_is_created(self):
-        file_to_read = os.path.join(self.path, "glider.rle")
-        self.parser.parse_file(file_to_read)
-        created_rle_file = os.path.join(self.path, "iterated-glider.rle")
-        self.parser.create_rle_file(created_rle_file)
+        created_rle_file = self.parse_file_and_create_a_new_file("glider.rle", "iterated-glider.rle")
         self.assertTrue(os.path.exists(created_rle_file))
         self.destroy_created_file(created_rle_file)
 
     def test_new_rle_file_contains_x_dimension(self):
-        file_to_read = os.path.join(self.path, "glider.rle")
-        self.parser.parse_file(file_to_read)
-        created_rle_file = os.path.join(self.path, "iterated-glider.rle")
-        self.parser.create_rle_file(created_rle_file)
+        created_rle_file = self.parse_file_and_create_a_new_file("glider.rle", "iterated-glider.rle")
         new_parser = ParserService()        
         new_parser.parse_file(created_rle_file)
         x_dim_should_be = 3
@@ -106,10 +100,7 @@ class TestParserService(unittest.TestCase):
         self.destroy_created_file(created_rle_file)
 
     def test_new_rle_file_contains_y_dimension(self):
-        file_to_read = os.path.join(self.path, "glider.rle")
-        self.parser.parse_file(file_to_read)
-        created_rle_file = os.path.join(self.path, "iterated-glider.rle")
-        self.parser.create_rle_file(created_rle_file)
+        created_rle_file = self.parse_file_and_create_a_new_file("glider.rle", "iterated-glider.rle")
         new_parser = ParserService()        
         new_parser.parse_file(created_rle_file)
         y_dim_should_be = 3
@@ -117,10 +108,7 @@ class TestParserService(unittest.TestCase):
         self.destroy_created_file(created_rle_file)
 
     def test_new_rle_file_contains_single_line_pattern(self):
-        file_to_read = os.path.join(self.path, "glider.rle")
-        self.parser.parse_file(file_to_read)
-        created_rle_file = os.path.join(self.path, "iterated-glider.rle")
-        self.parser.create_rle_file(created_rle_file)
+        created_rle_file = self.parse_file_and_create_a_new_file("glider.rle", "iterated-glider.rle")
         new_parser = ParserService()        
         new_parser.parse_file(created_rle_file)
         pattern_should_be = "bo$2bo$3o!"
@@ -128,10 +116,7 @@ class TestParserService(unittest.TestCase):
         self.destroy_created_file(created_rle_file)
 
     def test_new_rle_file_contains_multi_line_pattern_split_into_70_char_lines(self):
-        file_to_read = os.path.join(self.path, "gosper-glider.rle")
-        self.parser.parse_file(file_to_read)
-        created_rle_file = os.path.join(self.path, "iterated-gosper-glider.rle")
-        self.parser.create_rle_file(created_rle_file)
+        created_rle_file = self.parse_file_and_create_a_new_file("gosper-glider.rle", "iterated-gosper-glider.rle")
         with open(created_rle_file, "r", encoding="utf-8") as file:
             content = file.read()
             content_as_list = content.split("\n")
@@ -139,8 +124,52 @@ class TestParserService(unittest.TestCase):
         self.assertEqual(line_lengths_should_be, (len(content_as_list[-2]), len(content_as_list[-1])))
         self.destroy_created_file(created_rle_file)
 
-        pass
+    def test_rle_filename_is_extracted_from_given_cli_arguments(self):
+        path_and_file = "glider.rle"
+        iterations = 10
+        self.parser.execute_cli_args(path_and_file, iterations)
+        self.assertEqual(path_and_file, self.parser.import_subdir_and_filename)
+    
+    def test_n_of_iterations_is_extracted_from_given_cli_arguments(self):
+        path_and_file = "glider.rle"
+        iterations = 10
+        self.parser.execute_cli_args(path_and_file, iterations)
+        self.assertEqual(iterations, self.parser.iterations)
 
+    def test_export_filename_is_created_after_cli_arguments_are_extracted(self):
+        path_and_file = "glider.rle"
+        iterations = 10
+        self.parser.execute_cli_args(path_and_file, iterations)
+        export_filename_should_be = f"glider-iterated-{iterations}-life-cycles.rle"
+        self.assertEqual(export_filename_should_be, self.parser.export_filename)
+
+    def test_glider_is_fetched_from_rle_file_with_given_cli_args(self):
+        path_and_file = "glider.rle"
+        iterations = 10
+        self.parser.execute_cli_args(path_and_file, iterations)
+        pattern_should_be = "bo$2bo$3o!"
+        self.assertEqual(pattern_should_be, self.parser.pattern_as_str)
+
+    def test_parser_creates_str_pattern_from_a_grid(self):
+        self.parser.pattern_as_grid = [
+            [0,1,0],
+            [0,0,1],
+            [1,1,1]
+        ]
+        self.parser.x_dim = 3
+        self.parser.y_dim = 3
+        self.parser.create_str_pattern_from_grid()
+        pattern_as_str_should_be = "bo$2bo$3o!"
+        print(self.parser.str_pattern_from_grid)
+        self.assertEqual(pattern_as_str_should_be, self.parser.str_pattern_from_grid)
+
+
+    def parse_file_and_create_a_new_file(self, file_to_parse: str, file_to_create: str):
+        file_to_read = os.path.join(self.path, file_to_parse)
+        self.parser.parse_file(file_to_read)
+        created_rle_file = os.path.join(self.path, file_to_create)
+        self.parser.create_rle_file(created_rle_file)
+        return created_rle_file
 
     def destroy_created_file(self, path_and_file):
         if os.path.exists(path_and_file):
