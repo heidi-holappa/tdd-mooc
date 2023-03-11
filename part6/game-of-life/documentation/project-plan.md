@@ -45,14 +45,14 @@ The game mechanics follows these four simple rules:
 - [x] multi-line pattern can be written into the new file
 - [ ] # R - line can be included in the file
 
-**Parsing patter**
+**Parsing pattern**
 
 - [x] x-dimension can be parsed
 - [x] y-dimension can be parsed
 - [x] 1-line pattern pattern can be parsed into str
 - [x] multiple line pattern can be parsed into a str
 - [x] pattern with length-1 integer values can be transformed into grid form
-- [ ] pattern with length-1+ integer values can be transforme into grid form
+- [x] pattern with length-1+ integer values can be transformed into grid form
 - [ ] # x- and y-coordinated can be parsed from #R - line
 
 ## Planning the data structure
