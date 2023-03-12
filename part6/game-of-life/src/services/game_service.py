@@ -3,6 +3,7 @@ class GameService:
     def __init__(self):
         self.grid = []
         self.expanded_grid = []
+        self.r_value = (0, 0)
     
     def tick(self):
         self.expanded_grid = self.create_expanded_grid()
@@ -65,7 +66,7 @@ class GameService:
                 else:
                     if neighbours in [2,3]:
                         new_grid[row_idx][col_idx] = 1
-                print(row_idx, col_idx, neighbours)
+                # print(row_idx, col_idx, neighbours)
         self.expanded_grid = new_grid
     
     def create_updated_trimmed_grid(self, 
@@ -76,9 +77,17 @@ class GameService:
         if x_min == 0 and x_max == len(self.expanded_grid[0]) and y_min == 0 and y_max == len(self.expanded_grid):
             return 
         new_grid = []
+        self.r_value = (self.r_value[0]-1 + x_min,self.r_value[1] + 1 - y_min)
         for i in range(y_min, y_max+1):
             new_row = []
             for j in range(x_min,x_max + 1):
                 new_row.append(self.expanded_grid[i][j])
             new_grid.append(new_row)
         self.grid = new_grid
+    
+    def iterate_n_ticks(self, grid: list, n: int, initial_r_values: tuple):
+        self.r_value = initial_r_values
+        self.grid = grid
+        for i in range(n):
+            self.tick()
+        return self.grid, self.r_value
