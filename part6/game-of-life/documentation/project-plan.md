@@ -63,7 +63,7 @@ The game mechanics follows these four simple rules:
 
 - [x] Add a controller class to coordinate services
 - [x] Controller calls parses to parse the given RLE-file
-- [x] Controller calls game service to perform n iterations ($n\in\N_0$)
+- [x] Controller calls game service to perform n iterations ($n\in\mathbb{N}_0$)
 - [x] Controller coordinater writing of a new file
 - [x] Reminder add the #R-line
 
