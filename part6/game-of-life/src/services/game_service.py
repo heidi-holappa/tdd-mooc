@@ -84,7 +84,7 @@ class GameService:
     def iterate_n_ticks(self, grid: list, n_of_ticks: int, initial_r_values: tuple):
         self.r_value = initial_r_values
         self.grid = grid
-        for _ in range(n_of_ticks):
+        for i in range(n_of_ticks):
             if self.grid == []:
                 break
             self.tick()
