@@ -201,7 +201,7 @@ class TestRleFileCreation(unittest.TestCase):
         gosper_parser = ParserService()
         gosper_parser.initialize_parser_with_given_cli_args(
             "gosper-glider.rle", 0)
-        gosper_parser.create_rle_file(gosper_parser.pattern_as_grid, (0, 1))
+        gosper_parser.create_rle_file(gosper_parser.pattern_as_grid, (0, 0))
         with open(gosper_parser.export_filename, "r", encoding="utf-8") as file:
             content = file.read()
             content_as_list = content.split("\n")
