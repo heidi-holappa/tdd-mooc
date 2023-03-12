@@ -73,6 +73,18 @@ class TestServiceController(unittest.TestCase):
         self.assertEqual(pattern_should_be,
                          self.controller.parser.str_pattern_from_grid)
 
+    def test_gosper_glider_x_dim_is_correct_in_output_file_after_10_iterations(self):
+        path_and_filename = "gosper-glider.rle"
+        iterations = 50
+        self.controller.execute(path_and_filename, iterations)
+        y_dim_should_be = 17
+        with open(self.controller.parser.export_filename, "r", encoding="utf-8") as file:
+            content = file.read()
+            content_as_list = content.split("\n")
+            dimensions = content_as_list[-4].split(" ")
+        self.assertEqual(y_dim_should_be,
+                         int(dimensions[-1]))
+
     def test_output_file_contains_right_str_pattern(self):
         path_and_filename = "glider.rle"
         iterations = 10
