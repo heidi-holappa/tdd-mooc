@@ -37,8 +37,6 @@ class ParserService:
                         cell_multiplier = (
                             cell_multiplier[0] + self.pattern_as_str[str_idx], True)
                     str_idx += 1
-                    print(
-                        f"str_idx: {str_idx}, cell-multiplier: {cell_multiplier}")
                     continue
                 if self.pattern_as_str[str_idx] == "o" or self.pattern_as_str[str_idx] == "b":
                     cell_value = int(bool(self.pattern_as_str[str_idx] == "o"))
@@ -55,6 +53,8 @@ class ParserService:
     def create_str_pattern_from_grid(self, iterated_pattern_as_grid: list):
         y_count = 0
         x_count = 0
+        self.y_dim = len(iterated_pattern_as_grid)
+        self.x_dim = len(iterated_pattern_as_grid[0])
         new_pattern = ""
         for y_coord in range(self.y_dim):
             for x_coord in range(self.x_dim):
