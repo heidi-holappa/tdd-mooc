@@ -21,7 +21,6 @@ The game mechanics follows these four simple rules:
 - [x] Create task list
 - [x] Setup venv
 - [x] Install modules for testing (including coverage / mutation)
-- [ ] Install module for Argument parser (if necessary)
 - [x] Install package for Invoke (if needed)
 - [x] create requirements.txt
 - [x] Create initial README.md
@@ -29,7 +28,7 @@ The game mechanics follows these four simple rules:
 **Game of Life functionalities**
 
 - [x] Investigate and decide a data structure for storing cell states
-- [ ] The game state is returned after one tick
+- [x] TO CONSIDER: The game state is returned after n ticks
 - [x] Live cell with no neighbours dies after one tick
 - [x] Live cell with two neighboring cells remains unchanged after one tick
 - [x] Live cell with three neighboring cells remains unchanged after one tick
@@ -43,14 +42,12 @@ The game mechanics follows these four simple rules:
 - [x] x- and y-dim can be written into the new file
 - [x] single line pattern can be written into the new file
 - [x] multi-line pattern can be written into the new file
-- [ ] # R - line can be included in the file
+- [x] # R - line can be included in the file
 
 **Argument parser**
 
-- [ ] Argument parser extracts import rle-filename
-- [ ] Argument parser extracts n of iterations
-- [ ] Argument parser extracts optional export filename
-- [ ] (related to file management) if no export filename is given, default rle-filename is used
+- [x] Argument parser extracts import rle-filename
+- [x] Argument parser extracts n of iterations
 
 **Parsing pattern**
 
@@ -60,7 +57,19 @@ The game mechanics follows these four simple rules:
 - [x] multiple line pattern can be parsed into a str
 - [x] pattern with length-1 integer values can be transformed into grid form
 - [x] pattern with length-1+ integer values can be transformed into grid form
-- [ ] # x- and y-coordinated can be parsed from #R - line
+- [x] # x- and y-coordinated can be parsed from #R - line
+
+**Bringing it all together**
+
+- [x] Add a controller class to coordinate services
+- [x] Controller calls parses to parse the given RLE-file
+- [x] Controller calls game service to perform n iterations ($n\in\N_0$)
+- [x] Controller coordinater writing of a new file
+- [x] Reminder add the #R-line
+
+**Final phase: bug fixes**
+
+- [ ] Fix: exported file does not contain correct state (the state is the initial state)
 
 ## Planning the data structure
 
@@ -89,6 +98,8 @@ An initial idea on how to do one tick.
 - **trim:** The grid is trimmed by creating the smallest possible rectangle with live cells in it. All live cells must be in the trimmed grid. **To consider:** How to keep track of the location while moving.
 
 ## RLE - examples
+
+Some examples of RLE-forms used. Credits included in each RLE-segment.
 
 Blinker:
 
