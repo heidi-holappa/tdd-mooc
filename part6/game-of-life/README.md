@@ -4,7 +4,8 @@ This project is the final exercise for the MOOC course [TDD](https://tdd.mooc.fi
 
 ## Documentation
 
-- [project plan](documentation/project-plan.md)
+- [project plan](documentation/project-plan.md): Project plan and task list.
+- [project notes](documentation/project-notes.md): Short documentation on final notes and test coverage.
 
 ## Recordings
 
