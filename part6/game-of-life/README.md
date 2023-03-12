@@ -81,8 +81,9 @@ coverage run -m pytest src/tests/
 - [Part 6: The part in which nothing progresses, and I just fight with ArgumentParser](https://youtu.be/-Js_cB73ZrE) [1 h 5 min]
 - [Part 7: Back on track](https://youtu.be/mRiI4agXNDI): [app 1 h 5 min]
 - [Part 8: Oops, I forgot a feature!](https://youtu.be/tsmPb1dS1GQ): [app 30 min]
+- [Part 9: I can almost see the finish-line](https://youtu.be/j5UTNGZnY6w): [2 h 30 min]
 
-**Total time spent: app. 9 h 40 min**
+**Total time spent: app. 12 h 10 min**
 
 ## Links
 
