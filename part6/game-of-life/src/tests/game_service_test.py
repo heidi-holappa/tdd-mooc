@@ -142,3 +142,88 @@ class TestGameService(unittest.TestCase):
         self.game_service.tick()
         self.assertEqual([], self.game_service.grid)
     
+    def test_game_service_tracks_r_value_ie_coordinate_position(self):
+        at_start_r_value_should_be = (0, 0)
+        self.assertEqual(at_start_r_value_should_be, self.game_service.r_value)
+
+    def test_after_one_tick_glider_r_value_is_updated_correctly(self):
+        glider_state_one = [
+            [0,1,0],
+            [0,0,1],
+            [1,1,1],
+        ]
+        self.game_service.grid = glider_state_one
+        self.game_service.tick()
+        r_value = self.game_service.r_value
+        r_value_should_be = (0, -1)
+        self.assertEqual(r_value_should_be, r_value)
+
+    def test_after_two_ticks_glider_r_value_is_updated_correctly(self):
+        glider_state_one = [
+            [0,1,0],
+            [0,0,1],
+            [1,1,1],
+        ]
+        self.game_service.grid = glider_state_one
+        self.game_service.tick()
+        r_value = self.game_service.r_value
+        r_value_should_be = (0, -1)
+        self.assertEqual(r_value_should_be, r_value)
+
+    def test_one_dead_and_two_live_cells_returns_correctly_updated_r_value(self):
+        grid = [[0, 1, 1, 1]]
+        self.game_service.grid = grid
+        self.game_service.tick()
+        r_value = self.game_service.r_value
+        r_value_should_be = (2, 1)
+        self.assertEqual(r_value_should_be, r_value)
+
+    def test_one_dead_and_two_live_cells_returns_correctly_updated_r_value_after_two_ticks(self):
+        grid = [[0, 1, 1, 1]]
+        self.game_service.grid = grid
+        self.game_service.tick()
+        self.game_service.tick()
+        r_value = self.game_service.r_value
+        r_value_should_be = (1, 0)
+        self.assertEqual(r_value_should_be, r_value)
+    
+    def test_game_service_iterator_iterates_through_two_ticks_and_has_a_correct_grid(self):
+        glider_state_one = [
+            [0,1,0],
+            [0,0,1],
+            [1,1,1],
+        ]
+        self.game_service.iterate_n_ticks(glider_state_one, 2, (0,0))
+        glider_state_three = [
+            [0,0,1],
+            [1,0,1],
+            [0,1,1],
+        ]
+        self.assertEqual(glider_state_three, self.game_service.grid)
+
+    def test_game_service_iterator_iterates_the_grid_given_as_an_argument_and_returns_correct_grid_after_two_iterations(self):
+        glider_state_one = [
+            [0,1,0],
+            [0,0,1],
+            [1,1,1],
+        ]
+        grid_after_iterations, r_value = self.game_service.iterate_n_ticks(glider_state_one, 2, (0,0))
+        glider_state_three = [
+            [0,0,1],
+            [1,0,1],
+            [0,1,1],
+        ]
+        self.assertEqual(glider_state_three, grid_after_iterations)
+
+    def test_game_service_iterator_returns_correct_r_value_after_two_glider_iterations(self):
+        glider_state_one = [
+            [0,1,0],
+            [0,0,1],
+            [1,1,1],
+        ]
+        grid_after_iterations, r_value = self.game_service.iterate_n_ticks(glider_state_one, 2, (0,0))
+        r_value_should_be = (0, -1)
+        self.assertEqual(r_value_should_be, r_value)
+        
+
+    
