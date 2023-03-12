@@ -1,3 +1,4 @@
+import os
 import unittest
 from services.service_controller import ServiceController
 from services.parser_service import ParserService
@@ -25,3 +26,56 @@ class TestServiceController(unittest.TestCase):
         iterations = 10
         self.controller.execute(path_and_filename, iterations)
         self.assertEqual(iterations, self.controller.iterations)
+
+    def test_parser_imports_pattern_as_str_from_given_filename(self):
+        path_and_filename = "glider.rle"
+        iterations = 10
+        self.controller.execute(path_and_filename, iterations)
+        pattern_should_be = "bo$2bo$3o!"
+        self.assertEqual(pattern_should_be, self.controller.parser.pattern_as_str)
+
+    def test_parser_initializes_grid_from_parsed_str(self):
+        path_and_filename = "glider.rle"
+        iterations = 10
+        self.controller.execute(path_and_filename, iterations)
+        pattern__as_grid_should_be = [
+            [0,1,0],
+            [0,0,1],
+            [1,1,1],
+        ]
+        self.assertEqual(pattern__as_grid_should_be, self.controller.parser.pattern_as_grid)
+
+    def test_game_service_iterator_has_correct_r_value_after_two_glider_iterations(self):
+        path_and_filename = "glider.rle"
+        iterations = 2
+        self.controller.execute(path_and_filename, iterations)
+        r_value_should_be = (-10,8)
+        self.assertEqual(r_value_should_be, self.controller.game_service.r_value)
+
+    def test_game_service_iterator_has_correct_r_value_after_two_glider_iterations_with_respect_to_given_initial_r_value(self):
+        path_and_filename = "glider.rle"
+        iterations = 2
+        self.controller.execute(path_and_filename, iterations)
+        r_value_should_be = (-10,8)
+        self.assertEqual(r_value_should_be, self.controller.game_service.r_value)
+
+    def test_during_execution_file_method_calls_method_to_create_str_pattern_from_grid(self):
+        path_and_filename = "glider.rle"
+        iterations = 0
+        self.controller.execute(path_and_filename, iterations)
+        pattern_should_be = "bo$2bo$3o!"
+        self.assertEqual(pattern_should_be, self.controller.parser.str_pattern_from_grid)
+
+    def destroy_created_file(self, path_and_file):
+        if os.path.exists(path_and_file):
+            os.remove(path_and_file)
+
+    def tearDown(self):
+        self.destroy_created_file(self.controller.parser.export_filename)
+    
+
+    
+
+
+    
+
