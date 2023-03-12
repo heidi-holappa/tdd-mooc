@@ -1,6 +1,6 @@
-from argparse import ArgumentParser
-from services.parser_service import ParserService
 import sys
+from argparse import ArgumentParser
+from services.service_controller import ServiceController
 
 def parse_arguments(args: list):
     parser = ArgumentParser()
@@ -10,7 +10,13 @@ def parse_arguments(args: list):
     return parser.parse_args(args)
 
 parser = parse_arguments(sys.argv[1:])
-parser_service = ParserService()
-print(parser.imp, parser.iter, parser.exp)
+service_controller = ServiceController()
+
+try:
+    service_controller.execute(parser.imp, parser.iter)
+    print(f"Success!\nOutput: {service_controller.parser.export_filename}")
+except Exception as e:
+    print(f"Something went wrong. Details:\n{e}")
+
 
 
