@@ -10,6 +10,7 @@ class ParserService:
         self.import_subdir_and_filename = ""
         self.export_filename = ""
         self.iterations = 0
+        self.initial_r_value = (0, 0)
 
     def create_grid_from_pattern(self):
         """
@@ -44,19 +45,19 @@ class ParserService:
                     str_idx += 1
                     break
 
-    def create_str_pattern_from_grid(self):
+    def create_str_pattern_from_grid(self, iterated_pattern_as_grid: list):
         y_count = 0
         x_count = 0
         new_pattern = ""
         for y in range(self.y_dim):
             for x in range(self.x_dim):
                 if x == 0:
-                    if self.pattern_as_grid[y][x] == 1:
+                    if iterated_pattern_as_grid[y][x] == 1:
                         x_count = 1
                     else:
                         y_count = 1
-                elif self.pattern_as_grid[y][x] == 1:
-                    if self.pattern_as_grid[y][x-1] != 1:
+                elif iterated_pattern_as_grid[y][x] == 1:
+                    if iterated_pattern_as_grid[y][x-1] != 1:
                         count = ""
                         if y_count > 1:
                             count = str(y_count)
@@ -64,7 +65,7 @@ class ParserService:
                         y_count = 0
                     x_count += 1
                 else:
-                    if self.pattern_as_grid[y][x-1] != 0:
+                    if iterated_pattern_as_grid[y][x-1] != 0:
                         count = ""
                         if x_count > 1:
                             count = str(x_count)
@@ -88,6 +89,9 @@ class ParserService:
         content_as_list = content.split("\n")
         for element in content_as_list:
             if element[0] == "#":
+                if element[1] == "R":
+                    values = element.split(" ")
+                    self.initial_r_value = (int(values[1]), int(values[2]))
                 continue
             if element[0] == "x":
                 trimmed_element = "".join(element.split())
@@ -97,8 +101,10 @@ class ParserService:
                 continue
             self.pattern_as_str += element
 
-    def create_rle_file(self, filename: str):
-        with open(filename, "w", encoding="utf-8") as file:
+    def create_rle_file(self, iterated_grid: list, r_value: tuple):
+        self.create_str_pattern_from_grid(iterated_grid)
+        with open(self.export_filename, "w", encoding="utf-8") as file:
+            file.write(f"#R {str(r_value[0])} {str(r_value[1])}\n")
             file.write(f"x =  {self.x_dim}, y = {self.y_dim}\n")
             pattern_max_line_length = 70
             split_pattern = [self.pattern_as_str[i: i + pattern_max_line_length] for i in range(0, len(self.pattern_as_str), pattern_max_line_length)]
@@ -109,9 +115,10 @@ class ParserService:
                     file.write(split_pattern[i])
             file.close()
 
-    def execute_cli_args(self, path_and_file: str, iterations: int):
+    def initialize_parser_with_given_cli_args(self, path_and_file: str, iterations: int):
         self.import_subdir_and_filename = path_and_file
         self.iterations = iterations
         self.export_filename = f"{path_and_file[:-4]}-iterated-{iterations}-life-cycles.rle"
         import_directory_and_filename = os.path.join(os.path.dirname(__file__), '..', '..', 'rle-files/', self.import_subdir_and_filename)
         self.parse_file(import_directory_and_filename)
+        self.create_grid_from_pattern()
