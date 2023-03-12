@@ -69,7 +69,8 @@ The game mechanics follows these four simple rules:
 
 **Final phase: bug fixes**
 
-- [ ] Fix: exported file does not contain correct state (the state is the initial state)
+- [x] To fix: exported file does not contain correct state (the state is the initial state)
+- [x] To fix: exported file does not go to right directory
 
 ## Planning the data structure
 
